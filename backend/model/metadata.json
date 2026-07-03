@@ -1,0 +1,14 @@
+{
+    "model_name": "Linear Regression",
+    "version": "1.0.0",
+    "r2_score": 0.9859,
+    "rmse": 210.52,
+    "mae": 160.49,
+    "features": [
+        "Year",
+        "Brent_Oil_Price(US/b)",
+        "USD_INR",
+        "Global_Oil_Demand(mb/d)",
+        "Global_Conflict"
+    ]
+}
