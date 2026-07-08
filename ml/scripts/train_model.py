@@ -31,6 +31,8 @@ from sklearn.metrics import (
 DATA_PATH = "../dataset/Oil_Price_India_Prediction_dataset.csv"
 
 df = pd.read_csv(DATA_PATH)
+# Keep a copy of the original dataset for the dashboard
+dashboard_df = df.copy()
 
 # ==========================
 # Feature Selection
@@ -106,8 +108,49 @@ metadata = {
     "mae": round(mae, 2),
     "features": list(X.columns)
 }
+
+# ==========================
+# Dashboard Data
+# ==========================
+
+dashboard_data = {
+    "summary": {
+    "brent_oil": round(df["Brent_Oil_Price(US/b)"].iloc[-1], 2),
+    "usd_inr": round(df["USD_INR"].iloc[-1], 2),
+    "global_demand": round(df["Global_Oil_Demand(mb/d)"].iloc[-1], 2),
+    "global_conflict": int(df["Global_Conflict"].iloc[-1]),
+    "model_accuracy": round(r2 * 100, 2)
+},
+
+    "metrics": {
+        "r2": round(r2, 4),
+        "rmse": round(rmse, 2),
+        "mae": round(mae, 2)
+    },
+
+    "model": {
+        "algorithm": "Linear Regression",
+        "version": "1.0.0",
+        "features": list(X.columns)
+    },
+
+"historical_prices": [
+    {
+        "year": int(row["Year"]),
+        "month": int(row["Month"]),
+        "label": f"{int(row['Year'])}-{int(row['Month']):02d}",
+        "price": float(row["Oil_Price_India(INR/b)"]),
+        "brent": float(row["Brent_Oil_Price(US/b)"]),
+        "usd_inr": float(row["USD_INR"]),
+    }
+    for _, row in dashboard_df.iterrows()
+]
+}
 with open(os.path.join(MODEL_DIR, "metadata.json"), "w") as file:
     json.dump(metadata, file, indent=4)
+
+with open(os.path.join(MODEL_DIR, "dashboard_data.json"), "w") as file:
+    json.dump(dashboard_data, file, indent=4)
 
 print("\n✅ Training completed successfully.")
 print("✅ Artifacts saved to backend/model/")

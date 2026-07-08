@@ -28,7 +28,10 @@ function Stats() {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: .6 }}
+          transition={{
+  duration: 0.6,
+  ease: [0.22, 1, 0.36, 1],
+}}
           className="mb-14 text-center"
         >
 
@@ -47,25 +50,32 @@ function Stats() {
           {stats.map((item, index) => (
 
             <motion.div
-              key={item.label}
-              initial={{ opacity: 0, y: 35 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                delay: index * 0.15,
-              }}
-              className="group rounded-3xl border border-slate-800 bg-slate-900/70 p-8 backdrop-blur-xl transition hover:-translate-y-2 hover:border-blue-500/50"
-            >
+  key={item.label}
+  initial={{ opacity: 0, y: 18 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.3 }}
+  transition={{
+    duration: 0.55,
+    delay: index * 0.08,
+    ease: [0.22, 1, 0.36, 1],
+  }}
+  whileHover={{
+    y: -8,
+    scale: 1.02,
+    transition: {
+      duration: 0.2,
+    },
+  }}
+  className="group rounded-3xl border border-slate-800 bg-slate-900/70 p-8 backdrop-blur-xl shadow-lg hover:border-blue-500/50"
+>
+  <h3 className="text-5xl font-black text-blue-500">
+    {item.value}
+  </h3>
 
-              <h3 className="text-5xl font-black text-blue-500">
-                {item.value}
-              </h3>
-
-              <p className="mt-3 text-slate-400">
-                {item.label}
-              </p>
-
-            </motion.div>
+  <p className="mt-3 text-slate-400">
+    {item.label}
+  </p>
+</motion.div>
 
           ))}
 

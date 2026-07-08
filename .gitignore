@@ -21,3 +21,7 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# Generated model files
+backend/model/dashboard_data.json
+backend/model/prediction_history.json
