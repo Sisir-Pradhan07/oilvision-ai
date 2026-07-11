@@ -13,7 +13,7 @@ function DashboardSkeleton() {
 
         <div className="grid gap-8 lg:grid-cols-3">
 
-          <div className="h-[420px] rounded-2xl bg-slate-800 lg:col-span-2"></div>
+          <div className="h-105 rounded-2xl bg-slate-800 lg:col-span-2"></div>
 
           <div className="space-y-8">
             <div className="h-48 rounded-2xl bg-slate-800"></div>
