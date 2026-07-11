@@ -72,7 +72,6 @@ def health():
 
 @router.get("/dashboard")
 def get_dashboard_data():
-
     dashboard_file = os.path.join(MODEL_DIR, "dashboard_data.json")
 
     with open(dashboard_file, "r") as file:

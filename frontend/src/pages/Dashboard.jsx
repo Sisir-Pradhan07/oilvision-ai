@@ -21,9 +21,14 @@ useEffect(() => {
   async function loadDashboard() {
     try {
       const [dashboard, predictionHistory] = await Promise.all([
-  getDashboardData(),
-  getPredictionHistory(),
+        getDashboardData(),
+        getPredictionHistory(),
 ]);
+console.log("Dashboard:", dashboard);
+console.log("History:", predictionHistory);
+
+console.log("Dashboard API:", dashboard);
+console.log("Summary:", dashboard.summary);
 
 setDashboardData(dashboard);
 setHistory(predictionHistory);
@@ -42,6 +47,8 @@ if (!dashboardData) {
     </div>
   );
 }
+console.log("Dashboard Data:", dashboardData);
+console.log("dashboardData state:", dashboardData);
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950">
       <AnimatedBackground />
@@ -62,25 +69,25 @@ if (!dashboardData) {
 
             <StatCard
   title="Brent Oil"
-  value={dashboardData.summary.brent_oil}
+  value={dashboardData?.summary?.brent_oil ?? 0}
   prefix="$"
 />
 
 <StatCard
   title="USD / INR"
-  value={dashboardData.summary.usd_inr}
+  value={dashboardData?.summary?.usd_inr ?? 0}
   prefix="₹"
 />
 
 <StatCard
   title="Global Demand"
-  value={dashboardData.summary.global_demand}
+  value={dashboardData?.summary?.global_demand ?? 0}
   suffix=" mb/d"
 />
 
 <StatCard
   title="Model Accuracy"
-  value={dashboardData.summary.model_accuracy}
+  value={dashboardData?.summary?.model_accuracy ?? 0}
   suffix="%"
 />
 
