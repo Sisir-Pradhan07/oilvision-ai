@@ -11,22 +11,35 @@ function Predict() {
 const [result, setResult] = useState(null);
 const [lastInputs, setLastInputs] = useState(null);
 
-  async function handlePredict(data) {
-    try {
-      setLoading(true);
+ async function handlePredict(data) {
+  setLoading(true);
+  setResult(null);
+  setLastInputs(data); // <-- Move here
 
-      const response = await api.post("/predict", data);
+  const startTime = Date.now();
 
-      setResult(response.data);
-      setLastInputs(data);
-      toast.success("Prediction completed!");
-    } catch (error) {
-      console.error(error);
-      toast.error("Prediction failed. Please try again.");
-    } finally {
-      setLoading(false);
+  try {
+    const response = await api.post("/predict", data);
+
+    const elapsed = Date.now() - startTime;
+
+    if (elapsed < 3000) {
+      await new Promise((resolve) =>
+        setTimeout(resolve, 3000 - elapsed)
+      );
     }
+
+    setResult(response.data);
+
+    toast.success("Prediction completed!");
+
+  } catch (error) {
+    console.error(error);
+    toast.error("Prediction failed. Please try again.");
+  } finally {
+    setLoading(false);
   }
+}
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950">
