@@ -77,7 +77,7 @@ useEffect(() => {
 
   return () => clearInterval(timer);
 }, [loading]);
-console.log(CountUp);
+
   return (
     <GlassCard className="relative overflow-hidden p-8">
 
@@ -197,18 +197,30 @@ console.log(CountUp);
               Predicted Oil Price
             </p>
 
-           <h2 className="mt-3 bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-6xl font-black text-transparent">
+         <motion.h2
+  initial={{ opacity: 0, y: 20, scale: 0.9 }}
+  animate={{ opacity: 1, y: 0, scale: 1 }}
+  transition={{ duration: 0.4 }}
+  className="mt-3 bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-6xl font-black text-transparent"
+>
   ₹{" "}
   <CountUp
     start={0}
     end={Number(result.predicted_price)}
-    duration={1.2}
+    duration={2}
     separator=","
     decimals={2}
+    decimal="."
+    useEasing={true}
   />
-</h2>
+</motion.h2>
 
-            <div className="mt-6 flex justify-center">
+           <motion.div
+  initial={{ opacity: 0, y: 15 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 1.8, duration: 0.4 }}
+  className="mt-6 flex justify-center"
+>
 
               <button
                 onClick={() => generateReport(result, inputs)}
@@ -221,7 +233,7 @@ console.log(CountUp);
 
               </button>
 
-            </div>
+            </motion.div>
 
           </div>
 
