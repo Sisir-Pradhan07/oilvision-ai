@@ -16,30 +16,40 @@ import MetricsCard from "../components/dashboard/MetricsCard";
 function Dashboard() {
 const [dashboardData, setDashboardData] = useState(null);
 const [history, setHistory] = useState([]);
+const [loading, setLoading] = useState(true);
 
 useEffect(() => {
-  async function loadDashboard() {
-    try {
-      const [dashboard, predictionHistory] = await Promise.all([
-        getDashboardData(),
-        getPredictionHistory(),
-]);
-console.log("Dashboard:", dashboard);
-console.log("History:", predictionHistory);
+async function loadDashboard() {
+  const start = Date.now();
 
-console.log("Dashboard API:", dashboard);
-console.log("Summary:", dashboard.summary);
+  try {
+    const [dashboard, predictionHistory] = await Promise.all([
+      getDashboardData(),
+      getPredictionHistory(),
+    ]);
 
-setDashboardData(dashboard);
-setHistory(predictionHistory);
-    } catch (error) {
-      console.error(error);
+    const elapsed = Date.now() - start;
+
+    // Keep skeleton visible for at least 600ms
+    if (elapsed < 600) {
+      await new Promise(resolve =>
+        setTimeout(resolve, 600 - elapsed)
+      );
     }
+
+    setDashboardData(dashboard);
+    setHistory(predictionHistory);
+
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
   }
+}
 
   loadDashboard();
 }, []);
-if (!dashboardData) {
+if (loading) {
   return (
     <div className="min-h-screen bg-slate-950">
       <AnimatedBackground />
@@ -47,8 +57,6 @@ if (!dashboardData) {
     </div>
   );
 }
-console.log("Dashboard Data:", dashboardData);
-console.log("dashboardData state:", dashboardData);
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950">
       <AnimatedBackground />

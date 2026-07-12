@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Sparkles,
   CheckCircle2,
@@ -53,8 +53,23 @@ const steps = [
     value: null,
   },
 ];
-
+const [typingFinished, setTypingFinished] = useState(false);
 const [currentStep, setCurrentStep] = useState(0);
+const fullInsight = useMemo(() => {
+  if (!result) return "";
+
+  const conflictStatus =
+    inputs?.Global_Conflict === 1 ? "Conflict" : "No Conflict";
+
+  return `OilVision AI analyzed the current market indicators including Brent crude oil price (${inputs?.Brent_Oil_Price_US_b} USD/barrel), USD/INR exchange rate (${inputs?.USD_INR}), global oil demand (${inputs?.Global_Oil_Demand_mb_d} mb/d), and geopolitical status (${conflictStatus}). After preprocessing and feature scaling, the trained Linear Regression model estimated the predicted Indian oil price per barrel as ₹${Number(
+    result.predicted_price
+  ).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}.`;
+}, [result, inputs]);
+
+const [typedInsight, setTypedInsight] = useState("");
 
 useEffect(() => {
   if (!loading) {
@@ -77,6 +92,32 @@ useEffect(() => {
 
   return () => clearInterval(timer);
 }, [loading]);
+
+useEffect(() => {
+  if (!result) {
+    setTypedInsight("");
+    setTypingFinished(false);
+    return;
+  }
+
+  setTypedInsight("");
+  setTypingFinished(false);
+
+  let index = 0;
+
+  const timer = setInterval(() => {
+    setTypedInsight(fullInsight.slice(0, index));
+
+    index++;
+
+    if (index > fullInsight.length) {
+      clearInterval(timer);
+      setTypingFinished(true);
+    }
+  }, 18);
+
+  return () => clearInterval(timer);
+}, [fullInsight, result]);
 
   return (
     <GlassCard className="relative overflow-hidden p-8">
@@ -279,11 +320,13 @@ useEffect(() => {
             </div>
 
             <p className="leading-7 text-slate-300">
-              OilVision AI analyzed Brent crude prices, the USD/INR exchange
-              rate, global oil demand and geopolitical conditions to estimate
-              the expected Indian oil price using a trained Linear Regression
-              model.
-            </p>
+  {typedInsight}
+  {!typingFinished && (
+  <span className="ml-1 inline-block animate-pulse text-cyan-400">
+    |
+  </span>
+)}
+</p>
 
           </div>
 
