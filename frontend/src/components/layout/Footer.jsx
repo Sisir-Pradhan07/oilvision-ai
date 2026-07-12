@@ -17,7 +17,7 @@ function Footer() {
   };
 
   return (
-    <footer className="mt-24 border-t border-slate-800 bg-slate-950">
+    <footer className="relative mt-24 border-t border-slate-800 bg-gradient-to-b from-slate-950 via-slate-950 to-black">
 
       <div className="mx-auto max-w-7xl px-6 py-16">
 
@@ -29,9 +29,13 @@ function Footer() {
 
           <div className="lg:col-span-2">
 
-            <h2 className="text-3xl font-bold text-white">
-              OilVision AI
-            </h2>
+          <h2 className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-3xl font-extrabold text-transparent">
+  OilVision AI
+</h2>
+
+<p className="mt-2 text-sm uppercase tracking-[0.3em] text-slate-500">
+  AI Powered Forecasting Platform
+</p>
 
             <p className="mt-4 max-w-md text-slate-400 leading-7">
               AI-powered Oil Price Prediction platform built using
@@ -46,7 +50,7 @@ function Footer() {
                 href="https://github.com/Sisir-Pradhan07"
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-xl bg-slate-900 p-3 text-2xl text-slate-300 transition hover:bg-blue-600 hover:text-white"
+                className="rounded-2xl border border-slate-700 bg-slate-900 p-3 text-2xl text-slate-300 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400 hover:bg-cyan-500 hover:text-white"
               >
                 <FaGithub />
               </a>
@@ -55,7 +59,7 @@ function Footer() {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-xl bg-slate-900 p-3 text-2xl text-slate-300 transition hover:bg-blue-600 hover:text-white"
+                className="rounded-2xl border border-slate-700 bg-slate-900 p-3 text-2xl text-slate-300 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400 hover:bg-cyan-500 hover:text-white"
               >
                 <FaLinkedin />
               </a>
@@ -75,25 +79,25 @@ function Footer() {
             <ul className="space-y-3 text-slate-400">
 
               <li>
-                <Link className="hover:text-blue-400" to="/">
+                <Link className="transition hover:translate-x-1 hover:text-cyan-400" to="/">
                   Home
                 </Link>
               </li>
 
               <li>
-                <Link className="hover:text-blue-400" to="/predict">
+                <Link className="transition hover:translate-x-1 hover:text-cyan-400" to="/predict">
                   Predict
                 </Link>
               </li>
 
               <li>
-                <Link className="hover:text-blue-400" to="/dashboard">
+                <Link className="transition hover:translate-x-1 hover:text-cyan-400" to="/dashboard">
                   Dashboard
                 </Link>
               </li>
 
               <li>
-                <Link className="hover:text-blue-400" to="/about">
+                <Link className="transition hover:translate-x-1 hover:text-cyan-400" to="/about">
                   About
                 </Link>
               </li>
@@ -113,25 +117,25 @@ function Footer() {
             <ul className="space-y-3 text-slate-400">
 
               <li>
-                <a href="http://127.0.0.1:8000/docs" className="hover:text-blue-400">
+                <a href={`${import.meta.env.VITE_API_URL}/docs`} className="transition hover:translate-x-1 hover:text-cyan-400">
                   API Docs
                 </a>
               </li>
 
               <li>
-                <Link to="/dashboard" className="hover:text-blue-400">
+                <Link to="/dashboard" className="transition hover:translate-x-1 hover:text-cyan-400">
                   Analytics
                 </Link>
               </li>
 
               <li>
-                <Link to="/predict" className="hover:text-blue-400">
+                <Link to="/predict" className="transition hover:translate-x-1 hover:text-cyan-400">
                   Prediction
                 </Link>
               </li>
 
               <li>
-                <Link to="/dashboard" className="hover:text-blue-400">
+                <Link to="/dashboard" className="transition hover:translate-x-1 hover:text-cyan-400">
                   History
                 </Link>
               </li>
@@ -176,9 +180,22 @@ function Footer() {
 
         </div>
 
-        {/* Bottom */}
+        {/* Disclaimer */}
 
-        <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-slate-800 pt-8 md:flex-row">
+<div className="mt-16 border-t border-slate-800 pt-6">
+  <p className="mx-auto max-w-4xl text-center text-sm leading-6 text-slate-500">
+    <span className="font-semibold text-slate-300">Disclaimer:</span>{" "}
+    OilVision AI provides AI-based oil price predictions for educational,
+    research, and demonstration purposes only. Predictions are generated
+    using machine learning models and may not reflect actual market
+    conditions. This platform should not be used as financial or investment
+    advice.
+  </p>
+</div>
+
+{/* Bottom */}
+
+<div className="mt-8 flex flex-col items-center justify-between gap-6 border-t border-slate-800 pt-8 md:flex-row">
 
           <p className="text-slate-500 text-center md:text-left">
             © {new Date().getFullYear()} OilVision AI. Built by
@@ -187,7 +204,7 @@ function Footer() {
 
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-white transition hover:bg-blue-700"
+           className="flex items-center gap-2 rounded-full border border-cyan-500 bg-cyan-500/10 px-5 py-3 text-cyan-300 transition-all duration-300 hover:-translate-y-1 hover:bg-cyan-500 hover:text-white"
           >
             <FaArrowUp />
             Back to Top
