@@ -8,11 +8,12 @@ import {
   Download,
 } from "lucide-react";
 import CountUpModule from "react-countup";
-
+import ConfidenceMeter from "./ConfidenceMeter";
 const CountUp = CountUpModule.default;
 import generateReport from "../../utils/generateReport";
 import GlassCard from "../ui/GlassCard";
 import SectionTitle from "../ui/SectionTitle";
+import MarketSummary from "./MarketSummary";
 
 function PredictResult({ result, loading, inputs }) {
 const steps = [
@@ -118,6 +119,40 @@ useEffect(() => {
 
   return () => clearInterval(timer);
 }, [fullInsight, result]);
+
+const predictionConfidence = (() => {
+  if (!inputs) return 98.59;
+
+  let confidence = 98.59;
+
+  // Brent Oil Price
+  if (
+    inputs.Brent_Oil_Price_US_b < 40 ||
+    inputs.Brent_Oil_Price_US_b > 120
+  ) {
+    confidence -= 2;
+  }
+
+  // USD / INR
+  if (inputs.USD_INR < 65 || inputs.USD_INR > 95) {
+    confidence -= 1.5;
+  }
+
+  // Global Oil Demand
+  if (
+    inputs.Global_Oil_Demand_mb_d < 90 ||
+    inputs.Global_Oil_Demand_mb_d > 115
+  ) {
+    confidence -= 1.5;
+  }
+
+  // Geopolitical conflict
+  if (inputs.Global_Conflict === 1) {
+    confidence -= 0.8;
+  }
+
+  return Math.max(confidence, 85);
+})();
 
   return (
     <GlassCard className="relative overflow-hidden p-8">
@@ -280,55 +315,62 @@ useEffect(() => {
 
           <hr className="border-slate-800" />
 
-          <div className="space-y-4">
+          <div className="grid gap-6 lg:grid-cols-2">
 
-            <Info
-              label="Model"
-              value={result.model}
-            />
+  <div className="space-y-4">
 
-            <Info
-              label="Version"
-              value={result.version}
-            />
+    <Info
+      label="Model"
+      value={result.model}
+    />
 
-            <Info
-              label="Accuracy"
-              value="98.59%"
-            />
+    <Info
+      label="Version"
+      value={result.version}
+    />
 
-            <Info
-              label="Generated"
-              value={new Date().toLocaleTimeString()}
-            />
+   <Info
+  label="Model Accuracy"
+  value="98.59%"
+/>
 
-          </div>
+    <Info
+      label="Generated"
+      value={new Date().toLocaleTimeString()}
+    />
+
+  </div>
+
+  <ConfidenceMeter value={predictionConfidence} />
+</div>
 
           <div className="rounded-2xl border border-blue-500/20 bg-blue-500/10 p-5">
 
-            <div className="mb-2 flex items-center gap-2">
+  <div className="mb-2 flex items-center gap-2">
+    <Sparkles
+      size={18}
+      className="text-blue-400"
+    />
 
-              <Sparkles
-                size={18}
-                className="text-blue-400"
-              />
+    <span className="font-semibold text-white">
+      AI Insight
+    </span>
+  </div>
 
-              <span className="font-semibold text-white">
-                AI Insight
-              </span>
+  <div className="mb-8">
+    <MarketSummary inputs={inputs} />
+  </div>
 
-            </div>
+  <p className="leading-8 text-slate-300">
+    {typedInsight}
+    {!typingFinished && (
+      <span className="ml-1 inline-block animate-pulse text-cyan-400">
+        |
+      </span>
+    )}
+  </p>
 
-            <p className="leading-7 text-slate-300">
-  {typedInsight}
-  {!typingFinished && (
-  <span className="ml-1 inline-block animate-pulse text-cyan-400">
-    |
-  </span>
-)}
-</p>
-
-          </div>
+</div>
 
         </motion.div>
 
