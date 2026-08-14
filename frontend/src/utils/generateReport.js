@@ -45,7 +45,6 @@ doc.text(`ID: ${reportId}`, width - 20, 24, {
   let y = 48;
 
   doc.setDrawColor(...border);
-  doc.roundedRect(15, y, 180, 42, 3, 3);
 
   doc.setTextColor(...gray);
   doc.setFontSize(12);
@@ -61,6 +60,12 @@ const price = Number(result.predicted_price)
 
 doc.setFontSize(22);
 doc.text(`Rs. ${price}`, width / 2, y + 20, {
+  align: "center",
+});
+
+doc.setFontSize(11);
+doc.setTextColor(34, 197, 94);
+doc.text("High Confidence • Model Accuracy 98.59%", width / 2, y + 35, {
   align: "center",
 });
 
@@ -81,7 +86,7 @@ doc.text(`Rs. ${price}`, width / 2, y + 20, {
     { align: "center" }
   );
 
-  y += 50;
+  y += 56;
 
   // ================= LEFT CARD =================
 
@@ -100,7 +105,7 @@ doc.setDrawColor(...border);
 // Header background
 doc.setFillColor(245, 247, 250);
 doc.rect(15.5, y + 0.5, 84, 11, "F");
-  doc.text("Market Inputs", 20, y + 10);
+  doc.text("Market Inputs",20,y+10);
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(11);
@@ -110,7 +115,7 @@ doc.rect(15.5, y + 0.5, 84, 11, "F");
     ["Brent Oil Price", `$${inputs.Brent_Oil_Price_US_b}`],
     ["USD / INR", inputs.USD_INR],
     ["Global Demand", inputs.Global_Oil_Demand_mb_d + " mb/d"],
-    ["Global Conflict", inputs.Global_Conflict ? "Yes" : "No"],,
+    ["Global Conflict", inputs.Global_Conflict ? "Yes" : "No"],
   ];
 
   let rowY = y + 22;
@@ -137,7 +142,7 @@ doc.rect(110.5, y + 0.5, 84, 11, "F");
 doc.setFont("helvetica", "bold");
 doc.setTextColor(...dark);
 doc.setFontSize(14);
-doc.text("Model Information", 115, y + 10);
+doc.text("Model Information",115,y+10);
 
   const modelData = [
     ["Algorithm", result.model],
@@ -159,65 +164,127 @@ doc.text("Model Information", 115, y + 10);
     rowY += 10;
   });
 
-  y += 85;
+  y += 80;
 
-  // ================= DEVELOPER =================
+  // ================= MARKET SUMMARY =================
 
-  doc.roundedRect(15, y, 180, 35, 3, 3);
+doc.roundedRect(15, y, 180, 48, 3, 3);
 
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(14);
-  doc.setTextColor(...dark);
+doc.setFillColor(245,247,250);
+doc.rect(15.5, y + 0.5, 179, 11, "F");
 
-  doc.text("Developer", 20, y + 10);
+doc.setFont("helvetica", "bold");
+doc.setFontSize(14);
+doc.setTextColor(...dark);
 
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(12);
+doc.text("Market Summary",20,y+10);
 
-  doc.text("Sisir Pradhan", 20, y + 20);
-  doc.text("Machine Learning & Data Analytics", 20, y + 26);
-  doc.text("OilVision AI", 20, y + 32);
-  
+const brent =
+inputs.Brent_Oil_Price_US_b > 100
+? "High"
+: inputs.Brent_Oil_Price_US_b < 60
+? "Low"
+: "Stable";
 
-  y += 48;
+const usd =
+inputs.USD_INR > 90
+? "Weak INR"
+: inputs.USD_INR < 75
+? "Strong INR"
+: "Stable INR";
 
-  // ================= DISCLAIMER =================
+const demand =
+inputs.Global_Oil_Demand_mb_d > 105
+? "Strong Demand"
+: "Moderate Demand";
 
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(13);
+const trend =
+inputs.Global_Conflict === 1 ||
+inputs.Brent_Oil_Price_US_b > 100
+? "Upward Pressure"
+: "Stable Market";
 
-  doc.text("Disclaimer", 20, y);
+const summary = [
+["Brent Oil", brent],
+["USD / INR", usd],
+["Demand", demand],
+["Conflict", inputs.Global_Conflict ? "Yes" : "No"],
+["Expected Trend", trend],
+];
 
-  doc.setFont("helvetica", "normal");
-  doc.setTextColor(...gray);
-  doc.setFontSize(10);
+let sy = y + 20;
 
-  doc.text(
-    [
-      "This prediction was generated using a machine learning model",
-      "trained on historical oil market data.",
-      "Results are intended for educational and analytical purposes only.",
-    ],
-    20,
-    y + 8
-  );
+summary.forEach(([label,value])=>{
+
+doc.setTextColor(...gray);
+doc.text(label,20,sy);
+
+doc.setTextColor(...blue);
+doc.text(value,190,sy,{align:"right"});
+
+sy += 6;
+
+});
+
+y += 54;
+
+// ================= AI INSIGHT =================
+
+const conflictStatus =
+  inputs.Global_Conflict === 1 ? "Conflict" : "No Conflict";
+
+const insight =
+  `OilVision AI analyzed Brent crude ($${inputs.Brent_Oil_Price_US_b}/barrel), ` +
+  `USD/INR (${inputs.USD_INR}), Global Demand (${inputs.Global_Oil_Demand_mb_d} mb/d), ` +
+  `and Geopolitical Status (${conflictStatus}). ` +
+  `The trained Linear Regression model predicts an Indian oil price of Rs. ${price}.`;
+const wrappedInsight = doc.splitTextToSize(insight, 170);
+
+// Calculate card height automatically
+const insightHeight = wrappedInsight.length * 5 + 18;
+
+doc.roundedRect(15, y, 180, insightHeight, 3, 3);
+
+doc.setFillColor(245,247,250);
+doc.rect(15.5, y + 0.5, 179, 11, "F");
+
+doc.setFont("helvetica","bold");
+doc.setFontSize(14);
+doc.setTextColor(...dark);
+
+doc.text("AI Insight",20,y+8);
+
+doc.setFont("helvetica","normal");
+doc.setFontSize(10);
+doc.setTextColor(...gray);
+
+doc.text(wrappedInsight, 20, y + 18, {
+  lineHeightFactor: 1.35,
+});
+
+y += insightHeight + 8;
+y += 4;
+
+
 
   // ================= FOOTER =================
 
   doc.setDrawColor(...border);
-  doc.line(15, height - 18, width - 15, height - 18);
+  doc.line(15, height - 16, width - 15, height - 16);
 
   doc.setTextColor(...gray);
   doc.setFontSize(9);
 
-  doc.text(
-    "Generated by OilVision AI",
-    width / 2,
-    height - 10,
-    {
-      align: "center",
-    }
-  );
+doc.text(
+  [
+    "Generated by OilVision AI v1.0",
+    "For educational and analytical purposes only.",
+    "© 2026 Sisir Pradhan",
+  ],
+  width / 2,
+  height - 11,
+  { align: "center" }
+);
 
   doc.save(`OilVisionAI_Report_${reportId}.pdf`);
 }

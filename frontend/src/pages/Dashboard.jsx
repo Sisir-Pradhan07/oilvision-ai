@@ -6,6 +6,7 @@ import {
   getDashboardData,
   getPredictionHistory,
 } from "../services/dashboard";
+import { motion } from "framer-motion";
 import AnimatedBackground from "../components/ui/AnimatedBackground";
 import SectionTitle from "../components/ui/SectionTitle";
 import ModelInfoCard from "../components/dashboard/ModelInfoCard";
@@ -61,7 +62,12 @@ if (loading) {
     <div className="relative min-h-screen overflow-hidden bg-slate-950">
       <AnimatedBackground />
 
-      <div className="relative z-10 px-6 py-24">
+      <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5 }}
+  className="relative z-10 px-6 py-24"
+>
         <div className="mx-auto max-w-7xl">
 
           <SectionTitle
@@ -128,7 +134,7 @@ if (loading) {
 </div>
 
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
