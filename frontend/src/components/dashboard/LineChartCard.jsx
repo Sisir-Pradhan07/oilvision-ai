@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import GlassCard from "../ui/GlassCard";
 
 import {
@@ -47,7 +48,16 @@ function LineChartCard({ data }) {
         </div>
       </div>
 
-      <div className="h-80">
+      <motion.div
+  initial={{ opacity: 0, y: 12 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{
+    duration: 0.7,
+    delay: 0.15,
+    ease: "easeOut",
+  }}
+  className="h-80"
+        >
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={data}
@@ -175,12 +185,14 @@ function LineChartCard({ data }) {
                 strokeWidth: 2,
                 fill: "#ffffff",
               }}
-              animationDuration={1500}
-              animationEasing="ease-in-out"
+              isAnimationActive={true}
+animationBegin={150}
+animationDuration={1800}
+animationEasing="ease-in-out"
             />
           </AreaChart>
         </ResponsiveContainer>
-      </div>
+      </motion.div>
     </GlassCard>
   );
 }
