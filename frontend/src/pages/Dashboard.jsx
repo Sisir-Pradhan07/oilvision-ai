@@ -58,85 +58,110 @@ if (loading) {
     </div>
   );
 }
-  return (
-    <div className="relative min-h-screen overflow-hidden bg-slate-950">
-      <AnimatedBackground />
+return (
+  <div className="relative min-h-screen overflow-hidden bg-slate-950">
+    <AnimatedBackground />
 
-      <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.5 }}
-  className="relative z-10 px-6 py-24"
->
-        <div className="mx-auto max-w-7xl">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="relative z-10 px-4 py-20 sm:px-6 sm:py-24"
+    >
+      <div className="mx-auto max-w-7xl">
 
-          <SectionTitle
-          
-            title="Analytics Dashboard"
-            subtitle="Live insights generated from the latest trained Machine Learning model."
-          />
+        {/* Dashboard Header */}
+        <SectionTitle
+          title="Analytics Dashboard"
+          subtitle="Live insights generated from the latest trained Machine Learning model."
+        />
+
+        {/* Latest Prediction */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.1 }}
+          className="mb-8"
+        >
           <LatestPredictionCard
-  latest={history.length ? history[0] : null}
-/>
+            latest={history.length ? history[0] : null}
+          />
+        </motion.div>
 
-          <div className="mb-8 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        {/* Dashboard Statistics */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.2 }}
+          className="mb-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-4"
+        >
+          <StatCard
+            title="Brent Oil"
+            value={dashboardData?.summary?.brent_oil ?? 0}
+            prefix="$"
+          />
 
-            <StatCard
-  title="Brent Oil"
-  value={dashboardData?.summary?.brent_oil ?? 0}
-  prefix="$"
-/>
+          <StatCard
+            title="USD / INR"
+            value={dashboardData?.summary?.usd_inr ?? 0}
+            prefix="₹"
+          />
 
-<StatCard
-  title="USD / INR"
-  value={dashboardData?.summary?.usd_inr ?? 0}
-  prefix="₹"
-/>
+          <StatCard
+            title="Global Demand"
+            value={dashboardData?.summary?.global_demand ?? 0}
+            suffix=" mb/d"
+          />
 
-<StatCard
-  title="Global Demand"
-  value={dashboardData?.summary?.global_demand ?? 0}
-  suffix=" mb/d"
-/>
+          <StatCard
+            title="Model Accuracy"
+            value={dashboardData?.summary?.model_accuracy ?? 0}
+            suffix="%"
+          />
+        </motion.div>
 
-<StatCard
-  title="Model Accuracy"
-  value={dashboardData?.summary?.model_accuracy ?? 0}
-  suffix="%"
-/>
-
+        {/* Analytics */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.3 }}
+          className="grid gap-6 lg:grid-cols-3"
+        >
+          {/* Historical Chart */}
+          <div className="min-w-0 lg:col-span-2">
+            <LineChartCard
+              data={dashboardData.historical_prices}
+            />
           </div>
 
-         <div className="grid gap-8 lg:grid-cols-3">
+          {/* Model Analytics */}
+          <div className="space-y-6">
+            <MetricsCard
+              metrics={dashboardData.metrics}
+            />
 
-  <div className="lg:col-span-2">
-    <LineChartCard
-      data={dashboardData.historical_prices}
-    />
+            <ModelInfoCard
+              model={dashboardData.model}
+            />
+          </div>
+        </motion.div>
+
+        {/* Prediction History */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.4 }}
+          className="mt-8"
+        >
+          <PredictionHistoryCard
+            history={history}
+          />
+        </motion.div>
+
+      </div>
+    </motion.div>
   </div>
-
-  <div className="space-y-8">
-
-    <MetricsCard
-      metrics={dashboardData.metrics}
-    />
-
-    <ModelInfoCard
-      model={dashboardData.model}
-    />
-
-  </div>
-
-</div>
-
-<div className="mt-8">
-  <PredictionHistoryCard history={history} />
-</div>
-
-        </div>
-      </motion.div>
-    </div>
-  );
+);
 }
 
 export default Dashboard;
