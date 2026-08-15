@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import GlassCard from "../ui/GlassCard";
 import { CheckCircle2, Clock3 } from "lucide-react";
 
@@ -38,52 +39,104 @@ const roadmap = [
 
 function Roadmap() {
   return (
-    <section className="px-6 py-16">
+    <section className="px-6 py-20">
       <div className="mx-auto max-w-5xl">
 
-        <h2 className="mb-12 text-center text-3xl font-bold text-white">
-          Project Roadmap
-        </h2>
+        <div className="mb-14 text-center">
+          <h2 className="text-3xl font-bold text-white md:text-4xl">
+            Project Roadmap
+          </h2>
 
-        <p className="mb-10 text-center text-slate-400">
-          Planned enhancements for future versions of OilVision AI.
-        </p>
+          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+            Planned enhancements and completed milestones shaping the future
+            of OilVision AI.
+          </p>
+        </div>
 
-        <div className="space-y-5">
+        <div className="relative">
 
-          {roadmap.map((item) => (
-            <GlassCard
-              key={item.title}
-              className="flex items-center justify-between p-6 transition-all duration-300 hover:border-blue-500/40"
-            >
-              <div className="flex items-center gap-4">
+          {/* Timeline Line */}
+          <div className="absolute left-5 top-0 h-full w-px bg-slate-800 md:left-1/2 md:-translate-x-1/2" />
 
-                {item.status === "done" ? (
-                  <CheckCircle2 className="text-green-400" size={24} />
-                ) : (
-                  <Clock3 className="text-yellow-400" size={24} />
-                )}
+          <div className="space-y-8">
+            {roadmap.map((item, index) => {
+              const isDone = item.status === "done";
 
-                <span className="text-lg text-white">
-                  {item.title}
-                </span>
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{
+                    opacity: 0,
+                    y: 20,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  viewport={{
+                    once: true,
+                    amount: 0.2,
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    delay: index * 0.06,
+                  }}
+                  className={`relative flex items-center md:w-1/2 ${
+                    index % 2 === 0
+                      ? "md:mr-auto md:pr-12"
+                      : "md:ml-auto md:pl-12"
+                  }`}
+                >
 
-              </div>
 
-              <span
-                className={`rounded-full px-4 py-1 text-sm ${
-                  item.status === "done"
-                    ? "bg-green-500/10 text-green-400"
-                    : "bg-yellow-500/10 text-yellow-400"
-                }`}
-              >
-                {item.status === "done"
-                  ? "Completed"
-                  : "Planned"}
-              </span>
+                  <GlassCard
+                    className={`ml-10 w-full p-5 transition-all duration-300 md:ml-0 ${
+                      isDone
+                        ? "hover:border-green-500/30"
+                        : "hover:border-yellow-500/30"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-4">
 
-            </GlassCard>
-          ))}
+                      <div className="flex min-w-0 items-center gap-4">
+
+                        <div
+                          className={`shrink-0 rounded-xl p-2 ${
+                            isDone
+                              ? "bg-green-500/10 text-green-400"
+                              : "bg-yellow-500/10 text-yellow-400"
+                          }`}
+                        >
+                          {isDone ? (
+                            <CheckCircle2 size={20} />
+                          ) : (
+                            <Clock3 size={20} />
+                          )}
+                        </div>
+
+                        <span className="text-base font-medium text-white">
+                          {item.title}
+                        </span>
+
+                      </div>
+
+                      <span
+                        className={`shrink-0 rounded-full px-3 py-1 text-xs font-medium ${
+                          isDone
+                            ? "bg-green-500/10 text-green-400"
+                            : "bg-yellow-500/10 text-yellow-400"
+                        }`}
+                      >
+                        {isDone ? "Completed" : "Planned"}
+                      </span>
+
+                    </div>
+                  </GlassCard>
+
+                </motion.div>
+              );
+            })}
+          </div>
 
         </div>
 
