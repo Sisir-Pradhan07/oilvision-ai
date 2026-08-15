@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Activity, TrendingUp, Globe2, Target } from "lucide-react";
+import {
+  ArrowRight,
+  Activity,
+  TrendingUp,
+  Globe2,
+  Target,
+} from "lucide-react";
 
 function Hero() {
   return (
@@ -94,7 +100,8 @@ function Hero() {
             {/* Glow */}
             <div className="absolute -inset-4 rounded-[2rem] bg-blue-500/10 blur-3xl" />
 
-            <div className="relative rounded-3xl border border-slate-800 bg-slate-900/70 p-8 shadow-2xl shadow-black/20 backdrop-blur-xl">
+            {/* Market Snapshot */}
+            <div className="relative rounded-3xl border border-slate-800 bg-slate-900/90 p-8 shadow-2xl shadow-black/20">
 
               <div className="mb-8 flex items-center justify-between">
                 <div>
@@ -181,6 +188,7 @@ function Card({ icon, title, value }) {
       <span className="font-semibold tabular-nums text-blue-400">
         {value}
       </span>
+
     </motion.div>
   );
 }
