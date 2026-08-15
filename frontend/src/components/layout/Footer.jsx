@@ -23,11 +23,11 @@ function Footer() {
 
         {/* Top */}
 
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-12 md:grid-cols-2 lg:grid-cols-5">
 
           {/* Brand */}
 
-          <div className="lg:col-span-2">
+          <div className="col-span-2 lg:col-span-2">
 
           <h2 className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-3xl font-extrabold text-transparent">
   OilVision AI

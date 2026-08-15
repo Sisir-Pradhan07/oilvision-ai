@@ -5,8 +5,9 @@ import PrimaryButton from "../ui/PrimaryButton";
 
 function AboutCTA() {
   return (
-    <section className="relative overflow-hidden px-6 py-24">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.12),transparent_60%)]" />
+    <section className="relative px-6 py-24">
+      {/* Bottom Fade */}
+<div className="pointer-events-none absolute inset-x-0 -bottom-1 h-32 bg-gradient-to-b from-transparent to-slate-950" />
 
       <motion.div
         initial={{ opacity: 0, y: 25 }}
@@ -31,10 +32,7 @@ function AboutCTA() {
         </p>
 
         <div className="mt-10">
-          <Link
-            to="/predict"
-            className="inline-flex items-center gap-2"
-          >
+          <Link to="/predict">
             <PrimaryButton>
               <span className="flex items-center gap-2">
                 Start Predicting
@@ -44,6 +42,7 @@ function AboutCTA() {
           </Link>
         </div>
       </motion.div>
+
     </section>
   );
 }

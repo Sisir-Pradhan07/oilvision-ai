@@ -59,7 +59,8 @@ if (loading) {
   );
 }
 return (
-  <div className="relative min-h-screen overflow-hidden bg-slate-950">
+ <div className="relative min-h-screen overflow-hidden bg-slate-950">
+  <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-40 bg-gradient-to-b from-transparent to-slate-950" />
     <AnimatedBackground />
 
     <motion.div
