@@ -21,7 +21,7 @@ const stats = [
 
 function Stats() {
   return (
-    <section className="bg-slate-950 py-24">
+    <section className="relative overflow-hidden bg-gradient-to-b from-transparent via-slate-950/80 to-slate-950 py-24">
       <div className="mx-auto max-w-7xl px-6">
 
         <motion.div

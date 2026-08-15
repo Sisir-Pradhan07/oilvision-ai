@@ -1,7 +1,9 @@
 function CTA() {
   return (
-    <section className="bg-slate-950 py-24">
-      <div className="mx-auto max-w-5xl rounded-3xl border border-slate-800 bg-slate-900 p-12 text-center">
+    <section className="relative overflow-hidden bg-gradient-to-b from-transparent via-slate-950/80 to-slate-950 py-24">
+
+    
+      <div className="relative z-10 mx-auto max-w-5xl rounded-3xl border border-slate-800 bg-slate-900 p-12 text-center">
         <h2 className="text-4xl font-bold text-white">
           Ready to Predict Oil Prices?
         </h2>

@@ -10,14 +10,15 @@ import {
 
 function Hero() {
   return (
-    <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-slate-950">
+    <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-transparent">
 
       {/* Background Glow */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(37,99,235,0.25),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(59,130,246,0.15),transparent_40%),radial-gradient(circle_at_bottom,rgba(15,23,42,0.9),transparent_70%)]" />
 
       {/* Grid */}
       <div className="absolute inset-0 opacity-10 bg-[linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] bg-[size:55px_55px]" />
-
+      {/* Bottom fade */}
+<div className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-40 bg-gradient-to-b from-transparent to-slate-950" />
       <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 py-24 lg:grid-cols-2">
 
         {/* LEFT */}
