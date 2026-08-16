@@ -277,18 +277,21 @@ const predictionConfidence = (() => {
   initial={{ opacity: 0, y: 20, scale: 0.9 }}
   animate={{ opacity: 1, y: 0, scale: 1 }}
   transition={{ duration: 0.4 }}
-  className="mt-3 bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-6xl font-black text-transparent"
+  className="mt-3 whitespace-nowrap bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-5xl font-black text-transparent sm:text-6xl"
 >
-  ₹{" "}
-  <CountUp
-    start={0}
-    end={Number(result.predicted_price)}
-    duration={2}
-    separator=","
-    decimals={2}
-    decimal="."
-    useEasing={true}
-  />
+  <span className="inline-flex items-baseline gap-2">
+    <span>₹</span>
+
+    <CountUp
+      start={0}
+      end={Number(result.predicted_price)}
+      duration={2}
+      separator=","
+      decimals={2}
+      decimal="."
+      useEasing={true}
+    />
+  </span>
 </motion.h2>
 
            <motion.div

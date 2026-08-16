@@ -20,3 +20,16 @@ body {
   background: #2563eb;
   color: white;
 }
+
+/* Remove focus outline from Recharts after clicking the graph */
+.recharts-wrapper,
+.recharts-wrapper *,
+.recharts-surface {
+  outline: none !important;
+}
+
+.recharts-wrapper:focus,
+.recharts-wrapper *:focus,
+.recharts-surface:focus {
+  outline: none !important;
+}

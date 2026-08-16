@@ -38,9 +38,10 @@ function MarketSummary({ inputs }) {
   return (
     <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
 
-      <h3 className="mb-6 text-xl font-bold text-white">
-        📊 Market Summary
-      </h3>
+      <h3 className="mb-6 flex items-center gap-2 whitespace-nowrap text-xl font-bold text-white">
+  <span>📊</span>
+  <span>Market Summary</span>
+</h3>
 
       <div className="space-y-4">
 
@@ -90,20 +91,22 @@ function MarketSummary({ inputs }) {
 
 function Row({ icon, label, value }) {
   return (
-    <div className="flex items-center justify-between">
-
-      <div className="flex items-center gap-3 text-slate-300">
-
+    <div className="flex items-start gap-3">
+      <span className="shrink-0 pt-0.5 text-slate-300">
         {icon}
-
-        {label}
-
-      </div>
-
-      <span className="font-semibold text-cyan-400">
-        {value}
       </span>
 
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-col gap-1 min-[430px]:flex-row min-[430px]:items-start min-[430px]:justify-between min-[430px]:gap-3">
+          <span className="min-w-0 leading-6 text-slate-300">
+            {label}
+          </span>
+
+          <span className="shrink-0 whitespace-nowrap font-semibold leading-6 text-cyan-400 min-[430px]:text-right">
+            {value}
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

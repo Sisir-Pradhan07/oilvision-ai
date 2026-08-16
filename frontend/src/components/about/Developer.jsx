@@ -4,7 +4,7 @@ import GlassCard from "../ui/GlassCard";
 
 function Developer() {
   return (
-    <section className="px-6 py-20">
+    <section className="px-6 py-16">
       <div className="mx-auto max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
@@ -14,12 +14,7 @@ function Developer() {
         >
           <GlassCard className="p-10 text-center md:p-12">
 
-            <div className="mx-auto flex w-fit items-center gap-3 rounded-full border border-blue-500/20 bg-blue-500/10 px-5 py-2 text-sm text-blue-400">
-              <Code2 size={16} />
-              Built by a Developer
-            </div>
-
-            <h2 className="mt-7 text-3xl font-bold text-white md:text-4xl">
+            <h2 className="text-3xl font-bold text-white md:text-4xl">
               About the Developer
             </h2>
 
@@ -49,7 +44,7 @@ function Developer() {
 
               <Skill
                 icon={<Code2 size={18} />}
-                title="Web Development"
+                title="AI Web Development"
               />
 
             </div>
