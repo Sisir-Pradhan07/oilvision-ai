@@ -10,7 +10,7 @@ import {
 
 function Hero() {
   return (
-    <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-transparent">
+    <section className="relative flex min-h-[82vh] items-center overflow-hidden bg-transparent">
 
       {/* Background Glow */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(37,99,235,0.25),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(59,130,246,0.15),transparent_40%),radial-gradient(circle_at_bottom,rgba(15,23,42,0.9),transparent_70%)]" />
@@ -19,7 +19,7 @@ function Hero() {
       <div className="absolute inset-0 opacity-10 bg-[linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] bg-[size:55px_55px]" />
       {/* Bottom fade */}
 <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-40 bg-gradient-to-b from-transparent to-slate-950" />
-      <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 py-24 lg:grid-cols-2">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 lg:grid-cols-2">
 
         {/* LEFT */}
         <motion.div
@@ -33,7 +33,7 @@ function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="mb-8 inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-5 py-2 text-sm text-blue-400"
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-5 py-2 text-sm text-blue-400"
           >
             <Activity size={15} />
             AI Powered Energy Intelligence
@@ -47,14 +47,14 @@ function Hero() {
           </h1>
 
           {/* Description */}
-          <p className="mt-8 max-w-xl text-lg leading-8 text-slate-400">
+          <p className="mt-6 max-w-xl text-lg leading-8 text-slate-400">
             OilVision AI combines machine learning with economic indicators
             to forecast India's oil prices through an intelligent analytics
             platform.
           </p>
 
           {/* Buttons */}
-          <div className="mt-10 flex flex-wrap gap-4">
+          <div className="mt-8 flex flex-wrap gap-4">
 
             <Link
               to="/predict"
@@ -78,7 +78,7 @@ function Hero() {
           </div>
 
           {/* Trust indicators */}
-          <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-500">
+          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-500">
             <span>Machine Learning</span>
             <span className="text-slate-700">•</span>
             <span>Economic Indicators</span>
@@ -104,7 +104,7 @@ function Hero() {
             {/* Market Snapshot */}
             <div className="relative rounded-3xl border border-slate-800 bg-slate-900/90 p-8 shadow-2xl shadow-black/20">
 
-              <div className="mb-8 flex items-center justify-between">
+              <div className="mb-6 flex items-center justify-between">
                 <div>
                   <p className="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
                     Live Analytics

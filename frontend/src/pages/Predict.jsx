@@ -47,7 +47,7 @@ const [lastInputs, setLastInputs] = useState(null);
       <AnimatedBackground />
 
       <div className="relative z-10">
-        <section className="px-6 py-24">
+        <section className="px-6 py-14 md:py-16">
           <div className="mx-auto max-w-7xl">
             <div className="mb-14 text-center">
               <h1 className="text-5xl font-black text-white">

@@ -39,10 +39,10 @@ const roadmap = [
 
 function Roadmap() {
   return (
-    <section className="px-6 py-20">
+    <section className="px-6 py-12">
       <div className="mx-auto max-w-5xl">
 
-        <div className="mb-14 text-center">
+        <div className="mb-10 text-center">
           <h2 className="text-3xl font-bold text-white md:text-4xl">
             Project Roadmap
           </h2>

@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 function AboutHero() {
   return (
-    <section className="px-6 pt-36 pb-24">
+    <section className="px-6 pt-24 pb-24">
       <div className="mx-auto max-w-5xl text-center">
 
         <motion.h1

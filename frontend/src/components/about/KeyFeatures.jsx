@@ -49,10 +49,10 @@ const features = [
 
 function KeyFeatures() {
   return (
-    <section className="px-6 py-16">
+    <section className="px-6 py-12">
       <div className="mx-auto max-w-7xl">
 
-        <h2 className="mb-12 text-center text-3xl font-bold text-white">
+        <h2 className="mb-8 text-center text-3xl font-bold text-white">
           Key Features
         </h2>
 
