@@ -217,10 +217,10 @@ max={130}
 
 </div>
 {/* Prediction Flow */}
-<div className="mt-6 rounded-2xl border border-slate-800 bg-slate-900/40 p-5">
+<div className="mt-5 rounded-2xl border border-slate-800 bg-slate-900/40 p-4">
 
-  <div className="mb-5">
-    <h3 className="font-semibold text-white">
+  <div className="mb-4">
+    <h3 className="text-base font-semibold text-white">
       How the Prediction Works
     </h3>
 
@@ -229,7 +229,7 @@ max={130}
     </p>
   </div>
 
-  <div className="grid grid-cols-4 gap-2">
+  <div className="flex items-start">
 
     <FlowStep
       number="01"
@@ -269,11 +269,12 @@ max={130}
       </form>
     </GlassCard>
   );
-}function FlowStep({ number, title, description }) {
+}
+function FlowStep({ number, title, description }) {
   return (
-    <div className="min-w-0 text-center">
+    <div className="min-w-0 flex-1 text-center">
 
-      <div className="mx-auto flex h-9 w-9 items-center justify-center rounded-lg border border-blue-500/20 bg-blue-500/10 text-xs font-semibold text-blue-400">
+      <div className="mx-auto flex h-8 w-8 items-center justify-center rounded-lg border border-blue-500/20 bg-blue-500/10 text-[11px] font-semibold text-blue-400">
         {number}
       </div>
 
@@ -281,7 +282,7 @@ max={130}
         {title}
       </p>
 
-      <p className="mt-1 truncate text-[10px] text-slate-500">
+      <p className="mt-0.5 truncate text-[10px] text-slate-500">
         {description}
       </p>
 
@@ -291,7 +292,7 @@ max={130}
 
 function FlowConnector() {
   return (
-    <div className="flex items-center justify-center">
+    <div className="mt-4 flex min-w-3 flex-1 items-center">
       <div className="h-px w-full bg-gradient-to-r from-blue-500/10 via-blue-500/40 to-blue-500/10" />
     </div>
   );
