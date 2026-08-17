@@ -5,7 +5,7 @@ import PrimaryButton from "../ui/PrimaryButton";
 
 function AboutCTA() {
   return (
-    <section className="relative px-6 py-24">
+    <section className="relative px-6 py-12">
       {/* Bottom Fade */}
 <div className="pointer-events-none absolute inset-x-0 -bottom-1 h-32 bg-gradient-to-b from-transparent to-slate-950" />
 

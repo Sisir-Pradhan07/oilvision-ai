@@ -4,7 +4,7 @@ import GlassCard from "../ui/GlassCard";
 
 function Developer() {
   return (
-    <section className="px-6 py-16">
+    <section className="px-6 py-12">
       <div className="mx-auto max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
