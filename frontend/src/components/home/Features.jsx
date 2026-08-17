@@ -63,7 +63,7 @@ function Features() {
           </h2>
 
           <p className="mt-4 text-slate-400">
-            Built like a real AI product, not just a machine learning notebook.
+            A production-ready platform for intelligent oil price forecasting and market analysis.
           </p>
         </motion.div>
 
