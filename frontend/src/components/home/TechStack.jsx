@@ -41,17 +41,21 @@ function TechStack() {
             return (
               <motion.div
                 key={tech.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  delay: index * 0.05,
-                  duration: 0.4,
-                }}
-                whileHover={{
-                  y: -6,
-                  scale: 1.03,
-                }}
+               initial={{ opacity: 0, y: 18 }}
+whileInView={{ opacity: 1, y: 0 }}
+viewport={{ once: true, amount: 0.2 }}
+transition={{
+  delay: index * 0.06,
+  duration: 0.55,
+  ease: [0.22, 1, 0.36, 1],
+}}
+whileHover={{
+  y: -5,
+  transition: {
+    duration: 0.25,
+    ease: "easeOut",
+  },
+}}
                 className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 text-center backdrop-blur-xl"
               >
                 <Icon

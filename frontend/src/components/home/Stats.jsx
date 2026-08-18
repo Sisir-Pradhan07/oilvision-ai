@@ -60,13 +60,13 @@ function Stats() {
     ease: [0.22, 1, 0.36, 1],
   }}
   whileHover={{
-    y: -8,
-    scale: 1.02,
+    y: -5,
     transition: {
-      duration: 0.2,
+      duration: 0.25,
+      ease: "easeOut",
     },
   }}
-  className="group rounded-3xl border border-slate-800 bg-slate-900/70 p-8 backdrop-blur-xl shadow-lg hover:border-blue-500/50"
+  className="group rounded-3xl border border-slate-800 bg-slate-900/70 p-8 shadow-lg transition-colors duration-300 hover:border-blue-500/50"
 >
   <h3 className="text-5xl font-black text-blue-500">
     {item.value}

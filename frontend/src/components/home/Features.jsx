@@ -13,7 +13,7 @@ const features = [
     icon: BrainCircuit,
     title: "Machine Learning",
     description:
-      "Predicts India's oil prices using a trained regression model with high accuracy.",
+      "Predicts India's oil prices using a trained regression model with a strong R² score.",
   },
   {
     icon: Database,
@@ -75,12 +75,14 @@ function Features() {
             return (
               <motion.div
                 key={feature.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  delay: index * 0.12,
-                }}
+                initial={{ opacity: 0, y: 18 }}
+whileInView={{ opacity: 1, y: 0 }}
+viewport={{ once: true, amount: 0.2 }}
+transition={{
+  delay: index * 0.08,
+  duration: 0.55,
+  ease: [0.22, 1, 0.36, 1],
+}}
                 className="group rounded-3xl border border-slate-800 bg-slate-900/60 p-8 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:border-blue-500/50 hover:shadow-[0_0_30px_rgba(37,99,235,0.15)]"
               >
                 <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600/15 text-blue-500">
