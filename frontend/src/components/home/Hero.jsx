@@ -143,7 +143,7 @@ function Hero() {
 
                 <Card
                   icon={<Target size={18} />}
-                  title="Model Accuracy"
+                  title="R² Score"
                   value="98.59%"
                 />
 

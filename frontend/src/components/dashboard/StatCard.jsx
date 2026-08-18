@@ -21,8 +21,8 @@ function StatCard({ title, value, prefix = "", suffix = "" }) {
       case "Global Demand":
         return <Globe size={20} />;
 
-      case "Model Accuracy":
-        return <Target size={20} />;
+      case "R² Score":
+  return <Target size={20} />;
 
       default:
         return <TrendingUp size={20} />;
@@ -40,8 +40,8 @@ function StatCard({ title, value, prefix = "", suffix = "" }) {
       case "Global Demand":
         return "Global daily demand";
 
-      case "Model Accuracy":
-        return "Test-set performance";
+     case "R² Score":
+  return "Model test-set performance";
 
       default:
         return "Latest available data";

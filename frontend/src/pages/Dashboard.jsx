@@ -115,10 +115,10 @@ return (
           />
 
           <StatCard
-            title="Model Accuracy"
-            value={dashboardData?.summary?.model_accuracy ?? 0}
-            suffix="%"
-          />
+  title="R² Score"
+  value={dashboardData?.summary?.model_accuracy ?? 0}
+  suffix="%"
+/>
         </motion.div>
 
         {/* Analytics */}
