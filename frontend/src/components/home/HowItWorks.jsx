@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import {
   Database,
   Cpu,
@@ -34,6 +35,28 @@ const steps = [
 ];
 
 function HowItWorks() {
+  const [activeStep, setActiveStep] = useState(0);
+
+  /*
+   * One complete AI pipeline cycle.
+   *
+   * Stage 1 activates
+   * → signal travels
+   * → Stage 2 activates
+   * → signal travels
+   * → Stage 3 activates
+   * → signal travels
+   * → Stage 4 activates
+   * → restart
+   */
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveStep((previous) => (previous + 1) % steps.length);
+    }, 2200);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className="bg-slate-950 py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -64,6 +87,8 @@ function HowItWorks() {
           {steps.map((step, index) => {
             const Icon = step.icon;
 
+            const isActive = activeStep === index;
+
             return (
               <motion.div
                 key={step.title}
@@ -84,74 +109,68 @@ function HowItWorks() {
                   duration: 0.5,
                   ease: "easeOut",
                 }}
-                whileHover={{
-                  y: -6,
-                  transition: {
-                    duration: 0.2,
-                  },
-                }}
                 className="relative"
               >
 
                 {/* CARD */}
-                <div className="group relative h-full overflow-visible rounded-3xl border border-slate-800 bg-slate-900/60 p-8 backdrop-blur-xl">
+                <motion.div
+                  animate={{
+                    borderColor: isActive
+                      ? "rgba(59,130,246,0.45)"
+                      : "rgba(30,41,59,1)",
 
-                  {/* Very subtle active card glow */}
+                    boxShadow: isActive
+                      ? "0 0 40px rgba(37,99,235,0.10)"
+                      : "0 0 0px rgba(37,99,235,0)",
+                  }}
+                  transition={{
+                    duration: 0.7,
+                    ease: "easeInOut",
+                  }}
+                  className="group relative h-full overflow-visible rounded-3xl border bg-slate-900/60 p-8 backdrop-blur-xl"
+                >
+
+                  {/* ACTIVE CARD LIGHT */}
                   <motion.div
-                    className="pointer-events-none absolute inset-0 -z-10 rounded-3xl"
+                    className="pointer-events-none absolute inset-0 rounded-3xl"
                     animate={{
-                      opacity: [0.15, 0.35, 0.15],
+                      opacity: isActive ? 1 : 0,
                     }}
                     transition={{
-                      duration: 4,
-                      delay: index * 1.2,
-                      repeat: Infinity,
+                      duration: 0.7,
                       ease: "easeInOut",
                     }}
                     style={{
                       boxShadow:
-                        "0 0 55px rgba(59,130,246,0.10)",
+                        "inset 0 0 35px rgba(59,130,246,0.06)",
                     }}
                   />
 
                   {/* ICON */}
-<motion.div
-  className="relative mb-6 inline-flex rounded-2xl bg-blue-500/10 p-4 text-blue-400"
-  animate={{
-    backgroundColor: [
-      "rgba(59,130,246,0.10)",
-      "rgba(59,130,246,0.14)",
-      "rgba(59,130,246,0.20)",
-      "rgba(59,130,246,0.14)",
-      "rgba(59,130,246,0.10)",
-    ],
+                  <motion.div
+                    className="relative mb-6 inline-flex rounded-2xl bg-blue-500/10 p-4 text-blue-400"
+                    animate={{
+                      scale: isActive ? 1.06 : 1,
 
-    boxShadow: [
-      "0 0 0px rgba(59,130,246,0)",
-      "0 0 8px rgba(59,130,246,0.08)",
-      "0 0 28px rgba(59,130,246,0.30)",
-      "0 0 8px rgba(59,130,246,0.08)",
-      "0 0 0px rgba(59,130,246,0)",
-    ],
+                      backgroundColor: isActive
+                        ? "rgba(59,130,246,0.18)"
+                        : "rgba(59,130,246,0.10)",
 
-    color: [
-      "rgb(96,165,250)",
-      "rgb(96,165,250)",
-      "rgb(103,232,249)",
-      "rgb(96,165,250)",
-      "rgb(96,165,250)",
-    ],
-  }}
-  transition={{
-    duration: 4.5,
-    delay: index * 1.2,
-    repeat: Infinity,
-    ease: "easeInOut",
-    times: [0, 0.25, 0.5, 0.75, 1],
-  }}
->
-  <Icon size={28} />
-</motion.div>
+                      color: isActive
+                        ? "rgb(103,232,249)"
+                        : "rgb(96,165,250)",
+
+                      boxShadow: isActive
+                        ? "0 0 30px rgba(34,211,238,0.28)"
+                        : "0 0 0px rgba(34,211,238,0)",
+                    }}
+                    transition={{
+                      duration: 0.8,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <Icon size={28} />
+                  </motion.div>
 
                   {/* TITLE */}
                   <h3 className="mb-3 text-xl font-semibold text-white">
@@ -162,11 +181,14 @@ function HowItWorks() {
                   <p className="leading-7 text-slate-400">
                     {step.description}
                   </p>
-                </div>
+
+                </motion.div>
 
                 {/* NEURAL CONNECTION */}
                 {index < steps.length - 1 && (
-                  <NeuralConnection delay={index * 1.2} />
+                  <NeuralConnection
+                    active={activeStep === index}
+                  />
                 )}
 
               </motion.div>
@@ -179,12 +201,11 @@ function HowItWorks() {
   );
 }
 
-
 /* =========================================================
    NEURAL NETWORK CONNECTION
    ========================================================= */
 
-function NeuralConnection({ delay }) {
+function NeuralConnection({ active }) {
   return (
     <div className="pointer-events-none absolute left-[calc(100%+4px)] top-[92px] z-20 hidden h-20 w-12 xl:block">
 
@@ -193,158 +214,6 @@ function NeuralConnection({ delay }) {
         className="h-full w-full overflow-visible"
         fill="none"
       >
-
-        {/* -------------------------------------------------
-            SOFT OUTER GLOW
-        ------------------------------------------------- */}
-
-        <motion.path
-          d="M 0 40
-             C 10 40, 12 15, 24 15
-             C 36 15, 36 40, 48 40"
-          stroke="#2563EB"
-          strokeWidth="5"
-          strokeLinecap="round"
-          opacity="0.12"
-          filter="blur(6px)"
-          animate={{
-            opacity: [0.08, 0.22, 0.08],
-          }}
-          transition={{
-            duration: 4,
-            delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-
-        {/* -------------------------------------------------
-            MAIN NEURAL PATH
-        ------------------------------------------------- */}
-
-        <motion.path
-          d="M 0 40
-             C 10 40, 12 15, 24 15
-             C 36 15, 36 40, 48 40"
-          stroke="#334155"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-
-        <motion.path
-          d="M 0 40
-             C 10 40, 12 15, 24 15
-             C 36 15, 36 40, 48 40"
-          stroke="url(#neuralGradient)"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeDasharray="8 14"
-          animate={{
-            strokeDashoffset: [0, -44],
-          }}
-          transition={{
-            duration: 2.2,
-            delay,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-
-        {/* -------------------------------------------------
-            LOWER NEURAL BRANCH
-        ------------------------------------------------- */}
-
-        <motion.path
-          d="M 0 40
-             C 10 40, 12 65, 24 65
-             C 36 65, 36 40, 48 40"
-          stroke="#1E293B"
-          strokeWidth="1.2"
-          strokeLinecap="round"
-        />
-
-        <motion.path
-          d="M 0 40
-             C 10 40, 12 65, 24 65
-             C 36 65, 36 40, 48 40"
-          stroke="#2563EB"
-          strokeWidth="1.2"
-          strokeLinecap="round"
-          strokeDasharray="5 18"
-          animate={{
-            strokeDashoffset: [0, -46],
-            opacity: [0.15, 0.5, 0.15],
-          }}
-          transition={{
-            duration: 3,
-            delay: delay + 0.3,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-
-        {/* -------------------------------------------------
-            NEURAL NODE
-        ------------------------------------------------- */}
-
-        <motion.circle
-          cx="24"
-          cy="15"
-          r="2.5"
-          fill="#3B82F6"
-          animate={{
-            r: [2, 3.2, 2],
-            opacity: [0.3, 0.9, 0.3],
-          }}
-          transition={{
-            duration: 3,
-            delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-
-        <motion.circle
-          cx="24"
-          cy="65"
-          r="2"
-          fill="#22D3EE"
-          animate={{
-            r: [1.5, 2.8, 1.5],
-            opacity: [0.2, 0.7, 0.2],
-          }}
-          transition={{
-            duration: 3.5,
-            delay: delay + 0.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-
-        {/* -------------------------------------------------
-            ENERGY SIGNAL
-        ------------------------------------------------- */}
-
-        <motion.circle
-          r="2.2"
-          fill="#67E8F9"
-          filter="url(#signalGlow)"
-          animate={{
-            cx: [0, 12, 24, 36, 48],
-            cy: [40, 40, 15, 40, 40],
-            opacity: [0, 1, 1, 1, 0],
-          }}
-          transition={{
-            duration: 2.4,
-            delay: delay + 0.7,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-
-        {/* -------------------------------------------------
-            GRADIENTS / FILTERS
-        ------------------------------------------------- */}
 
         <defs>
 
@@ -393,6 +262,135 @@ function NeuralConnection({ delay }) {
           </filter>
 
         </defs>
+
+        {/* Main neural path */}
+        <path
+          d="
+            M 0 40
+            C 10 40, 12 15, 24 15
+            C 36 15, 36 40, 48 40
+          "
+          stroke="#334155"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          opacity="0.8"
+        />
+
+        {/* Lower branch */}
+        <path
+          d="
+            M 0 40
+            C 10 40, 12 65, 24 65
+            C 36 65, 36 40, 48 40
+          "
+          stroke="#1E293B"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+        />
+
+        {/* ACTIVE ENERGY PATH */}
+        <motion.path
+          d="
+            M 0 40
+            C 10 40, 12 15, 24 15
+            C 36 15, 36 40, 48 40
+          "
+          stroke="url(#neuralGradient)"
+          strokeWidth={active ? 2.2 : 1}
+          strokeLinecap="round"
+          strokeDasharray="8 14"
+          animate={{
+            strokeDashoffset: active ? [0, -44] : 0,
+            opacity: active ? [0.25, 1, 0.25] : 0.18,
+          }}
+          transition={{
+            duration: active ? 1.6 : 0.5,
+            repeat: active ? Infinity : 0,
+            ease: "linear",
+          }}
+        />
+
+        {/* LOWER ACTIVE BRANCH */}
+        <motion.path
+          d="
+            M 0 40
+            C 10 40, 12 65, 24 65
+            C 36 65, 36 40, 48 40
+          "
+          stroke="#2563EB"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+          strokeDasharray="5 18"
+          animate={{
+            strokeDashoffset: active ? [0, -46] : 0,
+            opacity: active ? [0.15, 0.55, 0.15] : 0.08,
+          }}
+          transition={{
+            duration: active ? 2 : 0.5,
+            repeat: active ? Infinity : 0,
+            ease: "linear",
+          }}
+        />
+
+        {/* UPPER NEURAL NODE */}
+        <motion.circle
+          cx="24"
+          cy="15"
+          fill="#3B82F6"
+          animate={{
+            r: active ? [2, 3.5, 2] : 2,
+            opacity: active ? [0.3, 1, 0.3] : 0.25,
+          }}
+          transition={{
+            duration: 1.4,
+            repeat: active ? Infinity : 0,
+            ease: "easeInOut",
+          }}
+        />
+
+        {/* LOWER NEURAL NODE */}
+        <motion.circle
+          cx="24"
+          cy="65"
+          fill="#22D3EE"
+          animate={{
+            r: active ? [1.5, 3, 1.5] : 1.5,
+            opacity: active ? [0.2, 0.8, 0.2] : 0.15,
+          }}
+          transition={{
+            duration: 1.6,
+            repeat: active ? Infinity : 0,
+            ease: "easeInOut",
+          }}
+        />
+
+        {/* ENERGY SIGNAL */}
+        <motion.circle
+          r="2.2"
+          fill="#67E8F9"
+          filter="url(#signalGlow)"
+          initial={{
+            opacity: 0,
+          }}
+          animate={{
+            cx: active
+              ? [0, 12, 24, 36, 48]
+              : 0,
+
+            cy: active
+              ? [40, 40, 15, 40, 40]
+              : 40,
+
+            opacity: active
+              ? [0, 1, 1, 1, 0]
+              : 0,
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: active ? Infinity : 0,
+            ease: "easeInOut",
+          }}
+        />
 
       </svg>
     </div>
