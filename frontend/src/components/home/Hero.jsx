@@ -90,11 +90,23 @@ function Hero() {
 
         {/* RIGHT */}
         <motion.div
-          initial={{ opacity: 0, x: 60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="flex items-center justify-center"
-        >
+  initial={{
+    opacity: 0,
+    x: 28,
+    scale: 0.985,
+  }}
+  animate={{
+    opacity: 1,
+    x: 0,
+    scale: 1,
+  }}
+  transition={{
+    duration: 1.4,
+    delay: 0.25,
+    ease: [0.16, 1, 0.3, 1],
+  }}
+  className="flex items-center justify-center"
+>
 
           <div className="relative w-full max-w-md">
 
@@ -121,33 +133,48 @@ function Hero() {
                 </div>
               </div>
 
-              <div className="space-y-3">
+              <motion.div
+  initial="hidden"
+  animate="visible"
+  variants={{
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1],
+        staggerChildren: 0.12,
+      },
+    },
+  }}
+  className="space-y-3"
+>
+  <SnapshotCard
+    icon={<TrendingUp size={18} />}
+    title="Brent Oil"
+    value="$82.45"
+  />
 
-                <Card
-                  icon={<TrendingUp size={18} />}
-                  title="Brent Oil"
-                  value="$82.45"
-                />
+  <SnapshotCard
+    icon={<Activity size={18} />}
+    title="USD / INR"
+    value="₹85.31"
+  />
 
-                <Card
-                  icon={<Activity size={18} />}
-                  title="USD / INR"
-                  value="₹85.31"
-                />
+  <SnapshotCard
+    icon={<Globe2 size={18} />}
+    title="Global Demand"
+    value="103.8 mb/d"
+  />
 
-                <Card
-                  icon={<Globe2 size={18} />}
-                  title="Global Demand"
-                  value="103.8 mb/d"
-                />
-
-                <Card
-                  icon={<Target size={18} />}
-                  title="R² Score"
-                  value="98.59%"
-                />
-
-              </div>
+  <SnapshotCard
+    icon={<Target size={18} />}
+    title="R² Score"
+    value="98.59%"
+  />
+</motion.div>
 
               <div className="mt-6 border-t border-slate-800 pt-5">
                 <p className="text-xs text-slate-500">
@@ -167,18 +194,46 @@ function Hero() {
   );
 }
 
-function Card({ icon, title, value }) {
+function SnapshotCard({ icon, title, value }) {
   return (
     <motion.div
-      whileHover={{ x: 4 }}
-      transition={{ duration: 0.2 }}
-      className="group flex items-center justify-between rounded-2xl border border-slate-800 bg-slate-950/80 p-4 transition-all duration-300 hover:border-blue-500/30 hover:bg-slate-900"
+      variants={{
+        hidden: {
+          opacity: 0,
+          y: 10,
+        },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: {
+            duration: 0.55,
+            ease: [0.22, 1, 0.36, 1],
+          },
+        },
+      }}
+      whileHover={{
+        x: 4,
+        transition: {
+          duration: 0.25,
+          ease: "easeOut",
+        },
+      }}
+      className="group flex items-center justify-between rounded-2xl border border-slate-800 bg-slate-950/80 p-4 transition-colors duration-300 hover:border-blue-500/30 hover:bg-slate-900"
     >
       <div className="flex items-center gap-3">
 
-        <div className="rounded-xl bg-blue-500/10 p-2 text-blue-400 transition group-hover:bg-blue-500/15">
+        <motion.div
+          className="rounded-xl bg-blue-500/10 p-2 text-blue-400"
+          whileHover={{
+            scale: 1.06,
+          }}
+          transition={{
+            duration: 0.25,
+            ease: "easeOut",
+          }}
+        >
           {icon}
-        </div>
+        </motion.div>
 
         <span className="text-sm text-slate-400">
           {title}
@@ -189,7 +244,6 @@ function Card({ icon, title, value }) {
       <span className="font-semibold tabular-nums text-blue-400">
         {value}
       </span>
-
     </motion.div>
   );
 }
