@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import GlassCard from "../ui/GlassCard";
 
 const technologies = [
@@ -16,20 +17,49 @@ function Technologies() {
   return (
     <section className="px-6 py-12">
       <div className="mx-auto max-w-6xl">
-        <h2 className="mb-8 text-center text-3xl font-bold text-white">
+
+        <motion.h2
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{
+            duration: 0.55,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="mb-8 text-center text-3xl font-bold text-white"
+        >
           Technologies Used
-        </h2>
+        </motion.h2>
 
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-          {technologies.map((tech) => (
-            <GlassCard
+          {technologies.map((tech, index) => (
+            <motion.div
               key={tech}
-              className="p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/40"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                duration: 0.55,
+                delay: index * 0.06,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              whileHover={{
+                y: -4,
+                transition: {
+                  duration: 0.25,
+                  ease: "easeOut",
+                },
+              }}
             >
-              <p className="text-lg font-semibold text-white">{tech}</p>
-            </GlassCard>
+              <GlassCard className="p-6 text-center transition-colors duration-300 hover:border-blue-500/40">
+                <p className="text-lg font-semibold text-white">
+                  {tech}
+                </p>
+              </GlassCard>
+            </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   );

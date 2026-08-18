@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import GlassCard from "../ui/GlassCard";
 import {
   BrainCircuit,
@@ -52,32 +53,59 @@ function KeyFeatures() {
     <section className="px-6 py-12">
       <div className="mx-auto max-w-7xl">
 
-        <h2 className="mb-8 text-center text-3xl font-bold text-white">
+        <motion.h2
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{
+            duration: 0.55,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="mb-8 text-center text-3xl font-bold text-white"
+        >
           Key Features
-        </h2>
+        </motion.h2>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 
-          {features.map((feature) => {
+          {features.map((feature, index) => {
             const Icon = feature.icon;
 
             return (
-              <GlassCard
+              <motion.div
                 key={feature.title}
-                className="p-7 transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/40"
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{
+                  duration: 0.55,
+                  delay: index * 0.06,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{
+                  y: -4,
+                  transition: {
+                    duration: 0.25,
+                    ease: "easeOut",
+                  },
+                }}
               >
-                <div className="mb-5 inline-flex rounded-xl bg-blue-500/10 p-3 text-blue-400">
-                  <Icon size={24} />
-                </div>
+                <GlassCard className="h-full p-7 transition-colors duration-300 hover:border-blue-500/40">
 
-                <h3 className="mb-3 text-xl font-semibold text-white">
-                  {feature.title}
-                </h3>
+                  <div className="mb-5 inline-flex rounded-xl bg-blue-500/10 p-3 text-blue-400">
+                    <Icon size={24} />
+                  </div>
 
-                <p className="leading-7 text-slate-400">
-                  {feature.description}
-                </p>
-              </GlassCard>
+                  <h3 className="mb-3 text-xl font-semibold text-white">
+                    {feature.title}
+                  </h3>
+
+                  <p className="leading-7 text-slate-400">
+                    {feature.description}
+                  </p>
+
+                </GlassCard>
+              </motion.div>
             );
           })}
 

@@ -42,7 +42,16 @@ function Roadmap() {
     <section className="px-6 py-12">
       <div className="mx-auto max-w-5xl">
 
-        <div className="mb-10 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{
+            duration: 0.55,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="mb-10 text-center"
+        >
           <h2 className="text-3xl font-bold text-white md:text-4xl">
             Project Roadmap
           </h2>
@@ -51,7 +60,7 @@ function Roadmap() {
             Planned enhancements and completed milestones shaping the future
             of OilVision AI.
           </p>
-        </div>
+        </motion.div>
 
         <div className="relative">
 
@@ -67,7 +76,7 @@ function Roadmap() {
                   key={item.title}
                   initial={{
                     opacity: 0,
-                    y: 20,
+                    y: 18,
                   }}
                   whileInView={{
                     opacity: 1,
@@ -78,8 +87,9 @@ function Roadmap() {
                     amount: 0.2,
                   }}
                   transition={{
-                    duration: 0.5,
+                    duration: 0.55,
                     delay: index * 0.06,
+                    ease: [0.22, 1, 0.36, 1],
                   }}
                   className={`relative flex items-center md:w-1/2 ${
                     index % 2 === 0
@@ -87,8 +97,6 @@ function Roadmap() {
                       : "md:ml-auto md:pl-12"
                   }`}
                 >
-
-
                   <GlassCard
                     className={`ml-10 w-full p-5 transition-all duration-300 md:ml-0 ${
                       isDone
@@ -132,14 +140,12 @@ function Roadmap() {
 
                     </div>
                   </GlassCard>
-
                 </motion.div>
               );
             })}
           </div>
 
         </div>
-
       </div>
     </section>
   );
