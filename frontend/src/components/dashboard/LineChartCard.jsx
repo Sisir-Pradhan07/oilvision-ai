@@ -222,23 +222,18 @@ function LineChartCard({ data }) {
             />
 
             <Area
-              type="natural"
-              dataKey="price"
-              stroke="#3B82F6"
-              strokeWidth={3}
-              fill="url(#oilPriceGradient)"
-              dot={false}
-              activeDot={{
-                r: 6,
-                stroke: "#3B82F6",
-                strokeWidth: 2,
-                fill: "#ffffff",
-              }}
-              isAnimationActive={true}
-              animationBegin={150}
-              animationDuration={1800}
-              animationEasing="ease-in-out"
-            />
+  type="natural"
+  dataKey="price"
+  stroke="#3B82F6"
+  strokeWidth={3}
+  fill="url(#oilPriceGradient)"
+  dot={false}
+  activeDot={false}
+  isAnimationActive={true}
+  animationBegin={150}
+  animationDuration={1800}
+  animationEasing="ease-in-out"
+/>
 
           </AreaChart>
         </ResponsiveContainer>

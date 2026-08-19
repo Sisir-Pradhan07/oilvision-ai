@@ -208,15 +208,12 @@ function HowItWorks() {
 function NeuralConnection({ active }) {
   return (
     <div className="pointer-events-none absolute left-[calc(100%+4px)] top-[92px] z-20 hidden h-20 w-12 xl:block">
-
       <svg
         viewBox="0 0 48 80"
         className="h-full w-full overflow-visible"
         fill="none"
       >
-
         <defs>
-
           <linearGradient
             id="neuralGradient"
             x1="0"
@@ -260,7 +257,6 @@ function NeuralConnection({ active }) {
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
-
         </defs>
 
         {/* Main neural path */}
@@ -333,65 +329,93 @@ function NeuralConnection({ active }) {
         />
 
         {/* UPPER NEURAL NODE */}
-        <motion.circle
+        <circle
           cx="24"
           cy="15"
+          r="2"
           fill="#3B82F6"
-          animate={{
-            r: active ? [2, 3.5, 2] : 2,
-            opacity: active ? [0.3, 1, 0.3] : 0.25,
-          }}
-          transition={{
-            duration: 1.4,
-            repeat: active ? Infinity : 0,
-            ease: "easeInOut",
-          }}
-        />
+          opacity={active ? 1 : 0.25}
+        >
+          {active && (
+            <>
+              <animate
+                attributeName="r"
+                values="2;3.5;2"
+                dur="1.4s"
+                repeatCount="indefinite"
+              />
+
+              <animate
+                attributeName="opacity"
+                values="0.3;1;0.3"
+                dur="1.4s"
+                repeatCount="indefinite"
+              />
+            </>
+          )}
+        </circle>
 
         {/* LOWER NEURAL NODE */}
-        <motion.circle
+        <circle
           cx="24"
           cy="65"
+          r="1.5"
           fill="#22D3EE"
-          animate={{
-            r: active ? [1.5, 3, 1.5] : 1.5,
-            opacity: active ? [0.2, 0.8, 0.2] : 0.15,
-          }}
-          transition={{
-            duration: 1.6,
-            repeat: active ? Infinity : 0,
-            ease: "easeInOut",
-          }}
-        />
+          opacity={active ? 0.8 : 0.15}
+        >
+          {active && (
+            <>
+              <animate
+                attributeName="r"
+                values="1.5;3;1.5"
+                dur="1.6s"
+                repeatCount="indefinite"
+              />
+
+              <animate
+                attributeName="opacity"
+                values="0.2;0.8;0.2"
+                dur="1.6s"
+                repeatCount="indefinite"
+              />
+            </>
+          )}
+        </circle>
 
         {/* ENERGY SIGNAL */}
-        <motion.circle
+        <circle
+          cx="0"
+          cy="40"
           r="2.2"
           fill="#67E8F9"
           filter="url(#signalGlow)"
-          initial={{
-            opacity: 0,
-          }}
-          animate={{
-            cx: active
-              ? [0, 12, 24, 36, 48]
-              : 0,
+          opacity={active ? 1 : 0}
+        >
+          {active && (
+            <>
+              <animate
+                attributeName="cx"
+                values="0;12;24;36;48"
+                dur="1.5s"
+                repeatCount="indefinite"
+              />
 
-            cy: active
-              ? [40, 40, 15, 40, 40]
-              : 40,
+              <animate
+                attributeName="cy"
+                values="40;40;15;40;40"
+                dur="1.5s"
+                repeatCount="indefinite"
+              />
 
-            opacity: active
-              ? [0, 1, 1, 1, 0]
-              : 0,
-          }}
-          transition={{
-            duration: 1.5,
-            repeat: active ? Infinity : 0,
-            ease: "easeInOut",
-          }}
-        />
-
+              <animate
+                attributeName="opacity"
+                values="0;1;1;1;0"
+                dur="1.5s"
+                repeatCount="indefinite"
+              />
+            </>
+          )}
+        </circle>
       </svg>
     </div>
   );
