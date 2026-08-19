@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   FaGithub,
   FaLinkedin,
@@ -30,11 +31,86 @@ function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
 
+            {/* Animated Brand Logo */}
             <Link
               to="/"
-              className="inline-block bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-3xl font-extrabold text-transparent transition-opacity duration-300 hover:opacity-90"
+              className="group inline-flex items-center text-3xl font-extrabold tracking-wide text-white"
             >
-              OilVision AI
+              Oil<span className="text-blue-500">Vision</span>
+
+              {/* Digital Ambient AI */}
+              <span className="relative ml-3 inline-flex items-center justify-center">
+
+                {/* Outer orbital ring */}
+                <motion.span
+                  className="absolute h-10 w-14 rounded-full border border-cyan-400/40"
+                  animate={{
+                    rotate: 360,
+                    scale: [1, 1.08, 1],
+                    opacity: [0.45, 0.8, 0.45],
+                  }}
+                  transition={{
+                    rotate: {
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "linear",
+                    },
+                    scale: {
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    },
+                    opacity: {
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    },
+                  }}
+                />
+
+                {/* Inner orbital ring */}
+                <motion.span
+                  className="absolute h-11 w-13 rounded-full border border-violet-400/25"
+                  animate={{
+                    rotate: -360,
+                    scale: [1, 0.94, 1],
+                  }}
+                  transition={{
+                    rotate: {
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: "linear",
+                    },
+                    scale: {
+                      duration: 2.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    },
+                  }}
+                />
+
+                {/* Moving energy dot */}
+                <motion.span
+                  className="absolute h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_8px_rgba(34,211,238,0.9)]"
+                  animate={{
+                    rotate: 360,
+                  }}
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                  style={{
+                    transformOrigin: "28px 0px",
+                  }}
+                />
+
+                {/* AI */}
+                <span className="relative bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-400 bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]">
+                  AI
+                </span>
+
+              </span>
             </Link>
 
             <p className="mt-2 text-sm uppercase tracking-[0.3em] text-slate-500">
@@ -48,6 +124,7 @@ function Footer() {
               explore model insights through an interactive dashboard.
             </p>
 
+            {/* Social Links */}
             <div className="mt-8 flex gap-4">
 
               <a
@@ -184,17 +261,16 @@ function Footer() {
 
               <div className="space-y-4 text-sm">
 
-                <a
-                  href="mailto:contact.oilvisionai@gmail.com"
-                  className="flex items-start gap-3 text-slate-400 transition-colors duration-300 hover:text-cyan-400"
-                >
-                  <FaEnvelope className="mt-0.5 shrink-0 text-cyan-400" />
+       <a
+  href="mailto:contact.oilvisionai@gmail.com"
+  className="flex items-center gap-3 whitespace-nowrap text-slate-400 transition-colors duration-300 hover:text-cyan-400"
+>
+  <FaEnvelope className="shrink-0 text-cyan-400" />
 
-                  <span className="break-all">
-                    contact.oilvisionai@gmail.com
-                  </span>
-                </a>
-
+  <span className="text-sm lg:-translate-y-0.5">
+    contact.oilvisionai@gmail.com
+  </span>
+</a>
                 <a
                   href="https://github.com/Sisir-Pradhan07"
                   target="_blank"
