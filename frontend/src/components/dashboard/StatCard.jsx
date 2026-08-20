@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+
 import {
   TrendingUp,
   DollarSign,
@@ -21,8 +22,8 @@ function StatCard({ title, value, prefix = "", suffix = "" }) {
       case "Global Demand":
         return <Globe size={20} />;
 
-      case "R² Score":
-  return <Target size={20} />;
+      case "Model Fit (R²)":
+        return <Target size={20} />;
 
       default:
         return <TrendingUp size={20} />;
@@ -40,8 +41,8 @@ function StatCard({ title, value, prefix = "", suffix = "" }) {
       case "Global Demand":
         return "Global daily demand";
 
-     case "R² Score":
-  return "Model test-set performance";
+      case "Model Fit (R²)":
+        return "How well the model explains test data";
 
       default:
         return "Latest available data";
@@ -62,7 +63,6 @@ function StatCard({ title, value, prefix = "", suffix = "" }) {
       }}
     >
       <GlassCard className="group relative h-full overflow-hidden border border-slate-800 p-6 transition-all duration-300 hover:border-blue-500/40 hover:shadow-xl hover:shadow-blue-500/10">
-
         {/* Accent */}
         <motion.div
           initial={{ scaleX: 0 }}
@@ -102,7 +102,6 @@ function StatCard({ title, value, prefix = "", suffix = "" }) {
         <p className="text-xs tracking-wide text-slate-500">
           {getDescription()}
         </p>
-
       </GlassCard>
     </motion.div>
   );

@@ -115,7 +115,7 @@ return (
           />
 
           <StatCard
-  title="R² Score"
+  title="Model Fit (R²)"
   value={dashboardData?.summary?.model_accuracy ?? 0}
   suffix="%"
 />

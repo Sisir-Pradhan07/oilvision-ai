@@ -2,20 +2,18 @@ import GlassCard from "../ui/GlassCard";
 
 function MetricsCard({ metrics }) {
   const metricsData = [
-  ["R² Score", metrics.r2],
-  ["RMSE", metrics.rmse],
-  ["MAE", metrics.mae],
-];
+    ["Model Fit (R²)", metrics.r2],
+    ["RMSE", metrics.rmse],
+    ["MAE", metrics.mae],
+  ];
 
   return (
     <GlassCard className="p-8">
-
       <h2 className="mb-6 text-2xl font-bold text-white">
         Model Performance
       </h2>
 
       <div className="space-y-4">
-
         {metricsData.map(([label, value]) => (
           <div
             key={label}
@@ -28,9 +26,7 @@ function MetricsCard({ metrics }) {
             </span>
           </div>
         ))}
-
       </div>
-
     </GlassCard>
   );
 }
