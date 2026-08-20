@@ -27,14 +27,14 @@ function handleReset() {
   setFormData(defaultValues);
 }
 
-  function handleChange(e) {
-    const { name, value } = e.target;
+ function handleChange(e) {
+  const { name, value } = e.target;
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: Number(value),
-    }));
-  }
+  setFormData((prev) => ({
+    ...prev,
+    [name]: value === "" ? "" : Number(value),
+  }));
+}
 
   function handleSubmit(e) {
   e.preventDefault();
@@ -61,6 +61,13 @@ function handleReset() {
     toast.error("Global Oil Demand must be between 80 and 130.");
     return;
   }
+  if (
+  formData.Global_Conflict !== 0 &&
+  formData.Global_Conflict !== 1
+) {
+  toast.error("Please select a valid conflict status.");
+  return;
+}
 
   onPredict(formData);
 }
@@ -161,10 +168,11 @@ max={130}
     Predict Oil Price
   </PrimaryButton>
 
-  <button
-    type="button"
-    onClick={handleReset}
-    className="rounded-xl border border-slate-700 px-6 py-3 text-slate-300 transition hover:border-blue-500 hover:text-white"
+ <button
+  type="button"
+  onClick={handleReset}
+  disabled={loading}
+    className="rounded-xl border border-slate-700 px-6 py-3 text-slate-300 transition hover:border-blue-500 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
   >
     Reset
   </button>
