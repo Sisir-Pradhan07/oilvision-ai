@@ -13,7 +13,7 @@ const features = [
     icon: BrainCircuit,
     title: "Machine Learning",
     description:
-      "Predicts India's oil prices using a trained regression model with a strong R² score.",
+      "Predicts India's oil prices using a trained regression model with a strong model fit (R²).",
   },
   {
     icon: Database,
