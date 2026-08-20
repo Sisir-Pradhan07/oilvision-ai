@@ -34,7 +34,7 @@ function TechStack() {
           </p>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-5">
           {techs.map((tech, index) => {
             const Icon = tech.icon;
 
@@ -56,7 +56,7 @@ whileHover={{
     ease: "easeOut",
   },
 }}
-                className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 text-center backdrop-blur-xl"
+                className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4 text-center backdrop-blur-xl sm:p-6"
               >
                 <Icon
                   className={`mx-auto mb-4 ${tech.color}`}
