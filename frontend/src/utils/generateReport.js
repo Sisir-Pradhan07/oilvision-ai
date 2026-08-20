@@ -64,8 +64,10 @@ doc.text(`Rs. ${price}`, width / 2, y + 20, {
 });
 
 doc.setFontSize(11);
+
 doc.setTextColor(34, 197, 94);
-doc.text("High Confidence • Model Accuracy 98.59%", width / 2, y + 35, {
+
+doc.text("Strong Model Fit • R² Score: 0.9859", width / 2, y + 35, {
   align: "center",
 });
 
@@ -145,10 +147,10 @@ doc.setFontSize(14);
 doc.text("Model Information",115,y+10);
 
   const modelData = [
-    ["Algorithm", result.model],
-    ["Accuracy", "98.59%"],
-    ["Version", result.version],
-  ];
+  ["Algorithm", result.model],
+  ["R² Score", "0.9859"],
+  ["Version", result.version],
+];
 
   rowY = y + 22;
 

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-function ConfidenceMeter({ value = 98.59 }) {
+function ModelFitMeter({ value = 0.9859 }) {
   const radius = 58;
   const stroke = 8;
 
@@ -8,18 +8,11 @@ function ConfidenceMeter({ value = 98.59 }) {
   const circumference = normalizedRadius * 2 * Math.PI;
 
   const safeValue = Math.min(
-    100,
+    1,
     Math.max(0, Number(value) || 0)
   );
 
-  const progress = (safeValue / 100) * circumference;
-
-  const color =
-    safeValue >= 95
-      ? "#22c55e"
-      : safeValue >= 85
-      ? "#eab308"
-      : "#ef4444";
+  const progress = safeValue * circumference;
 
   return (
     <motion.div
@@ -32,19 +25,17 @@ function ConfidenceMeter({ value = 98.59 }) {
       className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6"
     >
       <h3 className="mb-6 text-center text-lg font-semibold text-white">
-        Prediction Confidence
+        Model Performance
       </h3>
 
       <div className="flex justify-center">
         <div className="relative">
-
           <svg
             height={radius * 2}
             width={radius * 2}
             viewBox={`0 0 ${radius * 2} ${radius * 2}`}
             className="-rotate-90"
           >
-            {/* Background Ring */}
             <circle
               stroke="#1e293b"
               fill="transparent"
@@ -54,9 +45,8 @@ function ConfidenceMeter({ value = 98.59 }) {
               cy={radius}
             />
 
-            {/* Progress Ring */}
             <circle
-              stroke={color}
+              stroke="#22c55e"
               fill="transparent"
               strokeWidth={stroke}
               strokeLinecap="round"
@@ -73,36 +63,27 @@ function ConfidenceMeter({ value = 98.59 }) {
 
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <span className="text-2xl font-black text-white">
-              {safeValue.toFixed(2)}%
+              {safeValue.toFixed(3)}
             </span>
 
             <span className="mt-1 text-xs text-slate-400">
-              Confidence
+              R² Score
             </span>
           </div>
-
         </div>
       </div>
 
       <div className="mt-5 text-center">
-        <span
-          className={`rounded-full px-3 py-1 text-sm font-medium ${
-            safeValue >= 95
-              ? "bg-green-500/10 text-green-400"
-              : safeValue >= 85
-              ? "bg-yellow-500/10 text-yellow-400"
-              : "bg-red-500/10 text-red-400"
-          }`}
-        >
-          {safeValue >= 95
-            ? "High Confidence"
-            : safeValue >= 85
-            ? "Medium Confidence"
-            : "Low Confidence"}
-        </span>
+        <p className="text-sm font-medium text-green-400">
+          Strong Model Fit
+        </p>
+
+        <p className="mt-2 text-xs leading-5 text-slate-500">
+          Indicates how well the model explains patterns in historical oil price data.
+        </p>
       </div>
     </motion.div>
   );
 }
 
-export default ConfidenceMeter;
+export default ModelFitMeter;

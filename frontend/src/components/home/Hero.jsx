@@ -169,11 +169,11 @@ function Hero() {
     value="103.8 mb/d"
   />
 
-  <SnapshotCard
-    icon={<Target size={18} />}
-    title="R² Score"
-    value="98.59%"
-  />
+ <SnapshotCard
+  icon={<Target size={18} />}
+  title="Model Fit (R²)"
+  value="0.986"
+/>
 </motion.div>
 
               <div className="mt-6 border-t border-slate-800 pt-5">

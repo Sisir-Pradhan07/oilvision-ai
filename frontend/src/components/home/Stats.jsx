@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 
 const stats = [
   {
-    value: "98.59%",
-    label: "R² Score",
+    value: "0.986",
+    label: "Model Fit (R²)",
   },
   {
     value: "210.52",
