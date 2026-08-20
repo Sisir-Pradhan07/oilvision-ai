@@ -17,7 +17,14 @@ function Footer() {
       behavior: "smooth",
     });
   };
-
+const handleSamePageNavigation = (path) => {
+  if (window.location.pathname === path) {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+};
   const linkClass =
     "inline-block transition-all duration-300 hover:translate-x-1 hover:text-cyan-400";
 
@@ -160,30 +167,46 @@ function Footer() {
               </h3>
 
               <ul className="space-y-3 text-sm text-slate-400">
-                <li>
-                  <Link className={linkClass} to="/">
-                    Home
-                  </Link>
-                </li>
+  <li>
+    <Link
+      className={linkClass}
+      to="/"
+      onClick={() => handleSamePageNavigation("/")}
+    >
+      Home
+    </Link>
+  </li>
 
-                <li>
-                  <Link className={linkClass} to="/predict">
-                    Predict
-                  </Link>
-                </li>
+  <li>
+    <Link
+      className={linkClass}
+      to="/predict"
+      onClick={() => handleSamePageNavigation("/predict")}
+    >
+      Predict
+    </Link>
+  </li>
 
-                <li>
-                  <Link className={linkClass} to="/dashboard">
-                    Dashboard
-                  </Link>
-                </li>
+  <li>
+    <Link
+      className={linkClass}
+      to="/dashboard"
+      onClick={() => handleSamePageNavigation("/dashboard")}
+    >
+      Dashboard
+    </Link>
+  </li>
 
-                <li>
-                  <Link className={linkClass} to="/about">
-                    About
-                  </Link>
-                </li>
-              </ul>
+  <li>
+    <Link
+      className={linkClass}
+      to="/about"
+      onClick={() => handleSamePageNavigation("/about")}
+    >
+      About
+    </Link>
+  </li>
+</ul>
             </div>
 
             {/* Resources */}
@@ -193,33 +216,45 @@ function Footer() {
               </h3>
 
               <ul className="space-y-3 text-sm text-slate-400">
-                <li>
-                  <a
-                    href={`${import.meta.env.VITE_API_URL}/docs`}
-                    className={linkClass}
-                  >
-                    API Docs
-                  </a>
-                </li>
+  <li>
+    <a
+      href={`${import.meta.env.VITE_API_URL}/docs`}
+      className={linkClass}
+    >
+      API Docs
+    </a>
+  </li>
 
-                <li>
-                  <Link className={linkClass} to="/dashboard">
-                    Analytics
-                  </Link>
-                </li>
+  <li>
+    <Link
+      className={linkClass}
+      to="/dashboard"
+      onClick={() => handleSamePageNavigation("/dashboard")}
+    >
+      Analytics
+    </Link>
+  </li>
 
-                <li>
-                  <Link className={linkClass} to="/predict">
-                    Prediction
-                  </Link>
-                </li>
+  <li>
+    <Link
+      className={linkClass}
+      to="/predict"
+      onClick={() => handleSamePageNavigation("/predict")}
+    >
+      Prediction
+    </Link>
+  </li>
 
-                <li>
-                  <Link className={linkClass} to="/dashboard">
-                    History
-                  </Link>
-                </li>
-              </ul>
+  <li>
+    <Link
+      className={linkClass}
+      to="/dashboard"
+      onClick={() => handleSamePageNavigation("/dashboard")}
+    >
+      History
+    </Link>
+  </li>
+</ul>
             </div>
 
             {/* Technology */}
@@ -313,12 +348,13 @@ function Footer() {
               </p>
             </div>
 
-            <Link
-              to="/predict"
-              className="shrink-0 text-sm font-semibold text-blue-400 transition-colors duration-300 hover:text-cyan-300"
-            >
-              Start Predicting →
-            </Link>
+           <Link
+  to="/predict"
+  onClick={() => handleSamePageNavigation("/predict")}
+  className="shrink-0 text-sm font-semibold text-blue-400 transition-colors duration-300 hover:text-cyan-300"
+>
+  Start Predicting →
+</Link>
 
           </div>
         </div>

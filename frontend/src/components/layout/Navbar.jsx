@@ -5,7 +5,17 @@ import { FiMenu, FiX, FiArrowRight } from "react-icons/fi";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+const handleNavigation = (path) => {
+  if (window.location.pathname === path) {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }
 
+  setIsOpen(false);
+};
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Predict", path: "/predict" },
@@ -103,17 +113,18 @@ function Navbar() {
         <nav className="hidden items-center gap-8 md:flex">
 
           {navLinks.map((link) => (
-            <NavLink
-              key={link.name}
-              to={link.path}
-              className={({ isActive }) =>
-                `group relative py-2 text-sm font-medium transition-colors duration-300 ${
-                  isActive
-                    ? "text-blue-400"
-                    : "text-slate-300 hover:text-white"
-                }`
-              }
-            >
+           <NavLink
+  key={link.name}
+  to={link.path}
+  onClick={() => handleNavigation(link.path)}
+  className={({ isActive }) =>
+    `group relative py-2 text-sm font-medium transition-colors duration-300 ${
+      isActive
+        ? "text-blue-400"
+        : "text-slate-300 hover:text-white"
+    }`
+  }
+>
               {({ isActive }) => (
                 <>
                   {link.name}
@@ -132,16 +143,17 @@ function Navbar() {
 
           {/* Get Started */}
           <NavLink
-            to="/predict"
-            className="group ml-2 flex items-center gap-2 rounded-full border border-blue-500/40 bg-blue-500/10 px-5 py-2.5 text-sm font-semibold text-blue-300 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-400/60 hover:bg-blue-500/20 hover:text-cyan-300"
-          >
-            Get Started
+  to="/predict"
+  onClick={() => handleNavigation("/predict")}
+  className="group ml-2 flex items-center gap-2 rounded-full border border-blue-500/40 bg-blue-500/10 px-5 py-2.5 text-sm font-semibold text-blue-300 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-400/60 hover:bg-blue-500/20 hover:text-cyan-300"
+>
+  Get Started
 
-            <FiArrowRight
-              size={16}
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </NavLink>
+  <FiArrowRight
+    size={16}
+    className="transition-transform duration-300 group-hover:translate-x-1"
+  />
+</NavLink>
 
         </nav>
 
@@ -226,18 +238,18 @@ function Navbar() {
                   }}
                 >
                   <NavLink
-                    to={link.path}
-                    onClick={() => setIsOpen(false)}
-                    className={({ isActive }) =>
-                      `block rounded-xl px-4 py-3 text-sm font-medium transition-colors duration-200 ${
-                        isActive
-                          ? "bg-blue-500/10 text-blue-400"
-                          : "text-slate-300 hover:bg-slate-800/60 hover:text-white"
-                      }`
-                    }
-                  >
-                    {link.name}
-                  </NavLink>
+  to={link.path}
+  onClick={() => handleNavigation(link.path)}
+  className={({ isActive }) =>
+    `block rounded-xl px-4 py-3 text-sm font-medium transition-colors duration-200 ${
+      isActive
+        ? "bg-blue-500/10 text-blue-400"
+        : "text-slate-300 hover:bg-slate-800/60 hover:text-white"
+    }`
+  }
+>
+  {link.name}
+</NavLink>
                 </motion.div>
               ))}
 
@@ -258,14 +270,27 @@ function Navbar() {
                 }}
                 className="mt-2 border-t border-slate-800/60 pt-3"
               >
-                <NavLink
-                  to="/predict"
-                  onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-center gap-2 rounded-xl border border-blue-500/30 bg-blue-500/10 px-4 py-3 text-sm font-semibold text-blue-300 transition-all duration-300 hover:bg-blue-500/20 hover:text-cyan-300"
-                >
-                  Get Started
-                  <FiArrowRight size={16} />
-                </NavLink>
+               <NavLink
+  to="/predict"
+  onClick={() => {
+    if (window.location.pathname === "/predict") {
+      setIsOpen(false);
+
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }, 250);
+    } else {
+      setIsOpen(false);
+    }
+  }}
+  className="flex items-center justify-center gap-2 rounded-xl border border-blue-500/30 bg-blue-500/10 px-4 py-3 text-sm font-semibold text-blue-300 transition-all duration-300 hover:bg-blue-500/20 hover:text-cyan-300"
+>
+  Get Started
+  <FiArrowRight size={16} />
+</NavLink>
               </motion.div>
 
             </nav>
