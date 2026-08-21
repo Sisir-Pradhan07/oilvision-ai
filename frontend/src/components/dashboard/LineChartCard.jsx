@@ -104,7 +104,7 @@ function LineChartCard({ data = [] }) {
             {/* Year-over-Year Change */}
 
             {comparisonData && (
-              <div className="hidden sm:block">
+              <div>
                 <p className="text-xs uppercase tracking-wider text-slate-500">
                   Year-over-Year Change
                 </p>

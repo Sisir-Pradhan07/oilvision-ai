@@ -184,12 +184,15 @@ function HowItWorks() {
 
                 </motion.div>
 
-                {/* NEURAL CONNECTION */}
-                {index < steps.length - 1 && (
-                  <NeuralConnection
-                    active={activeStep === index}
-                  />
-                )}
+                {/* DESKTOP NEURAL CONNECTION */}
+{index < steps.length - 1 && (
+  <NeuralConnection active={activeStep === index} />
+)}
+
+{/* MOBILE VERTICAL CONNECTION */}
+{index < steps.length - 1 && (
+  <MobilePipelineConnection active={activeStep === index} />
+)}
 
               </motion.div>
             );
@@ -420,5 +423,95 @@ function NeuralConnection({ active }) {
     </div>
   );
 }
+function MobilePipelineConnection({ active }) {
+  return (
+    <div className="relative mx-auto flex h-14 w-full items-center justify-center xl:hidden">
+      
+      {/* Base data channel */}
+      <div className="absolute top-0 h-full w-[2px] rounded-full bg-slate-800" />
 
+      {/* Active glowing channel */}
+      <motion.div
+        className="absolute top-0 h-full w-[2px] rounded-full bg-gradient-to-b from-blue-500/30 via-cyan-400 to-blue-500/30"
+        animate={{
+          opacity: active ? [0.4, 1, 0.4] : 0.15,
+        }}
+        transition={{
+          duration: 1.8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      {/* Continuous flowing data particles */}
+      {active &&
+        [0, 0.28, 0.56, 0.84].map((delay, index) => (
+          <motion.div
+            key={index}
+            className="absolute top-0 h-2 w-2 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(34,211,238,0.9)]"
+            initial={{
+              y: -4,
+              opacity: 0,
+              scale: 0.5,
+            }}
+            animate={{
+              y: [0, 20, 40, 56],
+              opacity: [0, 1, 1, 0],
+              scale: [0.5, 1, 1, 0.6],
+            }}
+            transition={{
+              duration: 1.25,
+              delay,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+        ))}
+
+      {/* Input node */}
+      <motion.div
+        className="absolute -top-1 z-10 h-3 w-3 rounded-full border border-cyan-300 bg-slate-950"
+        animate={
+          active
+            ? {
+                boxShadow: [
+                  "0 0 0px rgba(34,211,238,0)",
+                  "0 0 12px rgba(34,211,238,0.8)",
+                  "0 0 0px rgba(34,211,238,0)",
+                ],
+              }
+            : {}
+        }
+        transition={{
+          duration: 1.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      {/* Output node */}
+      <motion.div
+        className="absolute -bottom-1 z-10 h-3 w-3 rounded-full border border-blue-400 bg-slate-950"
+        animate={
+          active
+            ? {
+                scale: [1, 1.25, 1],
+                boxShadow: [
+                  "0 0 0px rgba(59,130,246,0)",
+                  "0 0 12px rgba(59,130,246,0.8)",
+                  "0 0 0px rgba(59,130,246,0)",
+                ],
+              }
+            : {}
+        }
+        transition={{
+          duration: 1.5,
+          delay: 0.35,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+    </div>
+  );
+}
 export default HowItWorks;
