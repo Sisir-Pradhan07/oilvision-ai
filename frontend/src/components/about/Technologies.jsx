@@ -31,7 +31,7 @@ function Technologies() {
           Technologies Used
         </motion.h2>
 
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
           {technologies.map((tech, index) => (
             <motion.div
               key={tech}
