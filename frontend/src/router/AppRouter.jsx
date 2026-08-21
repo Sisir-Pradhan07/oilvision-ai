@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Layout from "../components/layout/Layout";
 import ScrollToTop from "../components/ui/ScrollToTop";
-
+import OilVisionChat from "../components/chat/OilVisionChat";
 import Home from "../pages/Home";
 import Predict from "../pages/Predict";
 import Dashboard from "../pages/Dashboard";
@@ -23,6 +23,7 @@ function AppRouter() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
+      <OilVisionChat />
     </BrowserRouter>
   );
 }
