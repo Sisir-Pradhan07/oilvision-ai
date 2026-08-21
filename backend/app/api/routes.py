@@ -2,7 +2,8 @@ import os
 import json
 from datetime import datetime
 from fastapi import APIRouter
-
+from app.schemas.chat import ChatRequest, ChatResponse
+from app.services.chat_service import get_chat_response
 from app.schemas.request import PredictionRequest
 from app.schemas.response import PredictionResponse
 from app.services.predictor import predict, metadata
@@ -110,3 +111,9 @@ def get_prediction_history():
         history = json.load(file)
 
     return history
+
+@router.post("/chat", response_model=ChatResponse)
+def chat(request: ChatRequest):
+    response = get_chat_response(request.message)
+
+    return ChatResponse(response=response)
